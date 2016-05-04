@@ -8,5 +8,6 @@ namespace gencbs.Resources
 {
     class ResourceType
     {
+        
     }
 }

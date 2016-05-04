@@ -20,11 +20,16 @@ namespace gencbs.Resources
             return cost;        
         }
 
-        public bool isAvailable(timeSlot timeToCheck)
+        public bool isAvailable(DateTime start, TimeSpan timeSpan)
         {
             bool isAvailable = false;
 
-
+            foreach (timeSlot slot in availability)
+            {
+                isAvailable = slot.isFree(start, timeSpan);
+                if (!isAvailable) break;
+            }
+            //check availability linked list
             
             return isAvailable;
         }
