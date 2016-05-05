@@ -15,9 +15,10 @@ namespace gencbs.Resources
 
         public int getCost()
         {
-            int cost = 0;
+            int setUpCost = type.SetUpCost;
+            int totalCost = setUpCost;
 
-            return cost;        
+            return totalCost;        
         }
 
         public bool isAvailable(DateTime start, TimeSpan timeSpan)
