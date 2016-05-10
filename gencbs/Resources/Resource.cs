@@ -12,6 +12,7 @@ namespace gencbs.Resources
         public String name;
         public int id;
         public LinkedList<timeSlot> availability;
+        private int efficiency;
 
         public int getCost()
         {
