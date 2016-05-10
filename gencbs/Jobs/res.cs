@@ -9,6 +9,6 @@ namespace gencbs.Jobs
     class res
     {
         public String resourceType;
-        public Resource allocated_resource;
+        public Resource allocated_resource; //add a resource after scheduling
     }
 }
