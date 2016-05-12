@@ -19,6 +19,7 @@ namespace gencbs.Resources
             this.timeSpan = end - start;
         }
 
+
         public bool isFree(DateTime from , TimeSpan span)
         {
             bool isfree;
