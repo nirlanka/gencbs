@@ -27,5 +27,8 @@ namespace gencbs.Resources
             isfree =  (this.startTime.CompareTo(from) <= 0 ) && (this.timeSpan.CompareTo(span) >= 0);
             return isfree;
         }
+
+        public DateTime StartTime { get; set; }
+        public TimeSpan TimeSpan { get; set; }
     }
 }
