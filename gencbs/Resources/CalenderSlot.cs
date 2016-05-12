@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace gencbs.Resources
 {
-    class Machine : Resource
+    class CalenderSlot : timeSlot
     {
-        public Machine()
-        {
-
-        }
+        
     }
 }

@@ -45,6 +45,8 @@
     <Compile Include="Jobs\res.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\BookedTimeSlot.cs" />
+    <Compile Include="Resources\CalenderSlot.cs" />
     <Compile Include="Resources\Machine.cs" />
     <Compile Include="Resources\Resource.cs" />
     <Compile Include="Resources\ResourceType.cs" />

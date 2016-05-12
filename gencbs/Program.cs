@@ -10,6 +10,10 @@ namespace gencbs
     {
         static void Main(string[] args)
         {
+            Resources.Resource machine1 = new Resources.Machine();
+            Resources.Resource machine2 = new Resources.Machine();
+            Console.WriteLine( machine2.id);
+            Console.Read();
         }
     }
 }
