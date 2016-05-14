@@ -14,6 +14,7 @@ namespace gencbs.Resources
 
         public timeSlot(DateTime start ,DateTime end)
         {
+            if (start > end) throw new ArgumentException("Wrong parametes");
             this.startTime = start;
             this.endTime = end;
             this.timeSpan = end - start;
@@ -40,6 +41,7 @@ namespace gencbs.Resources
         /// <returns></returns>
         public virtual timeSlot intersect(timeSlot slot)
         {
+            Console.WriteLine("timeslot");
             if ((slot.startTime >= this.endTime) || (slot.endTime <= this.startTime))
             {
                 return null;

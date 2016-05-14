@@ -22,14 +22,18 @@ namespace gencbs.Resources
         /// <returns></returns>
         public override timeSlot intersect(timeSlot slot)
         {
-            timeSlot temp = slot;
+            timeSlot temp = new timeSlot(slot.startTime,slot.endTime);
+            Console.WriteLine(slot);
 
             //creates the corresponding slot on the same week
-            int startGap = slot.startTime.DayOfWeek - this.startTime.DayOfWeek;
-            int endGap = slot.endTime.DayOfWeek - this.endTime.DayOfWeek;
-            timeSlot rosterTemp = slot;
-            rosterTemp.startTime.AddDays(startGap);
-            rosterTemp.endTime.AddDays(endGap);
+            int startGap =  this.startTime.DayOfWeek - slot.startTime.DayOfWeek;
+            int endGap = this.endTime.DayOfWeek - slot.endTime.DayOfWeek;
+
+            timeSlot rosterTemp = new timeSlot(slot.startTime, slot.endTime);
+           
+            rosterTemp.startTime = rosterTemp.startTime.AddDays(startGap).Add(this.startTime.TimeOfDay - slot.startTime.TimeOfDay);
+            rosterTemp.endTime = rosterTemp.endTime.AddDays(endGap).Add(this.endTime.TimeOfDay - slot.endTime.TimeOfDay);
+
 
             if( (slot.startTime >= rosterTemp.endTime) || (slot.endTime <= rosterTemp.startTime) )
             {
