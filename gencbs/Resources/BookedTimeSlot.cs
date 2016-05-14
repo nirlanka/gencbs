@@ -9,5 +9,11 @@ namespace gencbs.Resources
     class BookedTimeSlot : timeSlot
     {
         public int bookedJobId { get; set; }
+
+        public BookedTimeSlot(DateTime start, DateTime end)
+            : base(start, end)
+        {
+
+        }
     }
 }

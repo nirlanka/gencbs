@@ -8,6 +8,11 @@ namespace gencbs.Resources
 {
     class Labour : Resource
     {
+        public Labour(ResourceType type, int efficiency)
+            : base(type,efficiency)
+        {
+
+        }
 
     }
 }

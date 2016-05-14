@@ -8,14 +8,22 @@ namespace gencbs.Resources
 {
     class ResourceType
     {
-        private enum resourceType { Doctor, Nurse, OperationTheator };
+        public String name { get; private set; }
+        public int setupCost { get; private set; }
 
-        private int setUpCost;
-
-        public int SetUpCost
+        public ResourceType(String name)
         {
-            get { return setUpCost; }
-            set { setUpCost = value; }
-        }        
+            this.name = name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+
+            ResourceType rt = obj as ResourceType;
+            return (this.name == rt.name);
+        }
+
+               
     }
 }

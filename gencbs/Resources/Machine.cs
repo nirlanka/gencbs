@@ -8,7 +8,8 @@ namespace gencbs.Resources
 {
     class Machine : Resource
     {
-        public Machine()
+        public Machine(ResourceType ResType, int efficiency)
+            : base(ResType,efficiency)
         {
 
         }
