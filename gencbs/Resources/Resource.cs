@@ -42,13 +42,17 @@ namespace gencbs.Resources
         /// <summary>
         /// update the availability list by checking the bookde list and roster of the resource
         /// </summary>
-        private void getAvailabilityList()
+        private void updateAvailabilityList()
         {
+            availability.Clear(); //remove all nodes of the availabilty list
+            
             LinkedList<timeSlot> tempList = new LinkedList<timeSlot>();
             timeSlot tempSlot = new timeSlot();
             
+            //***do something for the null booked list.
+
             LinkedListNode<timeSlot> node = BookedTime.First;
-            while(node == null)
+            while(node != null)
             {
                 tempSlot.startTime = node.Value.endTime;
                 node = node.Next;
@@ -56,35 +60,38 @@ namespace gencbs.Resources
                 {
                     tempSlot.endTime = tempSlot.startTime.AddMonths(3); //make the resource available for few months ahead from last booking
                 }
-                tempSlot.endTime = node.Value.startTime;
+                else tempSlot.endTime = node.Value.startTime;
                 tempList.AddLast(tempSlot);
             }
 
-            
+            //now intersect tempSLot with calander of the resource
 
+            node = tempList.First;
+            timeSlot availableSlot = new timeSlot();
 
-            //LinkedListNode<timeSlot> rosterNode = roster.First;
-            //foreach (timeSlot bookedSlot in BookedTime)
-            //{
-            //    while(true)
-            //    {
-            //        timeSlot rosterSlot = rosterNode.Value;
+            while (node != null)
+            {
+                foreach (CalenderSlot slot in roster)
+                {
+                    availableSlot = slot.intersect(node.Value);
+                    if (availableSlot == null) continue;
 
-            //        if(bookedSlot.startTime.DayOfWeek >= rosterSlot.startTime.DayOfWeek)
-            //        {
-            //            if()
-            //            {
-            //            }
-            //        }
+                    availability.AddLast(availableSlot);
 
-            //        rosterNode = rosterNode.Next;
-            //        if (rosterNode == null)
-            //        {
-            //            rosterNode = roster.First;
-            //        }
-            //    }
+                    if (availableSlot.endTime < node.Value.endTime)
+                    {
+                        node.Value.endTime = availableSlot.endTime;
+                        tempSlot.startTime = availableSlot.endTime;
+                        tempSlot.endTime = node.Value.endTime;
 
-            //}
+                        tempList.AddAfter(node, tempSlot);
+                        //continue;
+                    }
+                    break; //comes here only the available slot ends with the  
+
+                }
+                node = node.Next;
+            }
         }
 
         /// <summary>

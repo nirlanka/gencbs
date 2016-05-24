@@ -22,7 +22,8 @@ namespace gencbs.Resources
 
         public timeSlot()
         {
-            // TODO: Complete member initialization
+            //this.startTime = null;
+            //this.endTime = null;
         }
 
 
