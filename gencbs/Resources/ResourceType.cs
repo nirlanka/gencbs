@@ -24,6 +24,10 @@ namespace gencbs.Resources
             return (this.name == rt.name);
         }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
                
     }
 }

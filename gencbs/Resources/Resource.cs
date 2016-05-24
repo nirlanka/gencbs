@@ -14,9 +14,8 @@ namespace gencbs.Resources
         public String name;
         public int id{get; private set;}
 
-        public LinkedList<timeSlot> availability;
+        public LinkedList<timeSlot> availability = new LinkedList<timeSlot>();
 
-        public LinkedList<BookedTimeSlot> bookedList;
          // 
         private LinkedList<CalenderSlot> roster;      
         private int efficiency = 100;
@@ -27,11 +26,12 @@ namespace gencbs.Resources
         /// </summary>
         /// <param name="type"></param>
         /// <param name="efficiency"></param>
-        public Resource(ResourceType type, int efficiency)
+        public Resource(String name, ResourceType type, int efficiency)
         {
             Interlocked.Increment(ref nextId);  //Increment the nextId variable in a thread safe manner
             this.id = nextId;   //add Id to the Resource object
 
+            this.name = name;
             this.type = type;
             this.efficiency = efficiency;
        
