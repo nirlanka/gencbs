@@ -8,12 +8,12 @@ namespace gencbs.Resources
 {
     class ResourceType
     {
-        public String name { get; private set; }
-        public int setupCost { get; private set; }
+        public String typeName { get;  set; }
+        public int setupCost { get;  set; }
 
         public ResourceType(String name)
         {
-            this.name = name;
+            this.typeName = name;
         }
 
         public override bool Equals(object obj)
@@ -21,7 +21,7 @@ namespace gencbs.Resources
             if (obj == null) return false;
 
             ResourceType rt = obj as ResourceType;
-            return (this.name == rt.name);
+            return (this.typeName == rt.typeName);
         }
 
         public override int GetHashCode()

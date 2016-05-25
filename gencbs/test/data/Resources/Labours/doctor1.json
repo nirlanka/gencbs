@@ -1,0 +1,1 @@
+{"name":"doctor1","availability":[],"type":{"typeName":"doctorType_A","setupCost":0},"id":1,"BookedTime":[{"startTime":"2016-05-03T16:00:00","endTime":"2016-05-05T08:00:00","StartTime":"0001-01-01T00:00:00","TimeSpan":"00:00:00"},{"startTime":"2016-05-05T13:00:00","endTime":"2016-05-05T16:00:00","StartTime":"0001-01-01T00:00:00","TimeSpan":"00:00:00"}]}

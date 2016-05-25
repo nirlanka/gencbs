@@ -10,16 +10,16 @@ namespace gencbs.Resources
     class Resource
     {
         private static int nextId = 0;  //this value should changed to the last count of the stored objects
-        public ResourceType type { get; private set; }
+        public ResourceType type { get;  set; }
         public String name;
-        public int id{get; private set;}
+        public int id{get;  set;}
 
         public LinkedList<timeSlot> availability = new LinkedList<timeSlot>();
 
          // 
         private LinkedList<CalenderSlot> roster;      
         private int efficiency = 100;
-        public LinkedList<timeSlot> BookedTime { get; private set; }
+        public LinkedList<timeSlot> BookedTime { get; set; }
 
         /// <summary>
         /// 
@@ -37,6 +37,11 @@ namespace gencbs.Resources
        
             BookedTime = new LinkedList<timeSlot>();
             this.BookedTime = new LinkedList<timeSlot>();
+        }
+
+        public Resource()
+        {
+            // TODO: Complete member initialization
         }
 
         /// <summary>

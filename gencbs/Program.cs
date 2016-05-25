@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using gencbs.Resources;
 using System.Web.Script.Serialization;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace gencbs
 {
@@ -34,29 +35,48 @@ namespace gencbs
             //Console.WriteLine("free- " + job);
             //Console.WriteLine("availble -" + ros.intersect(job));
 
-            LinkedList<timeSlot> availability1 = new LinkedList<timeSlot>();
-            availability1.AddLast(new timeSlot(date1,date2));
-            availability1.AddLast(new timeSlot(date2.AddHours(5) , date2.AddHours(8)));
+            //creating booked time list,roster
+            LinkedList<timeSlot> roster1 = new LinkedList<timeSlot>();
+            roster1.AddLast(new timeSlot(date1,date2));
+            roster1.AddLast(new timeSlot(date2.AddHours(5) , date2.AddHours(8)));
 
-            Resource r1 = new Resource("doc1", new ResourceType("type1"), 100);// { type = new ResourceType() { name = "type1" }, efficiency = 100 };
-            r1.availability = availability1;
-            Resource r2 = new Resource("doc2", new ResourceType("type1"), 10); 
-            var serializer = new JavaScriptSerializer();
-            var result = serializer.Serialize(r1);
-            //Console.WriteLine(result);
+            //creating a resource type
+            ResourceType doctorType_A = new ResourceType("doctorType_A");
 
-            //using (StreamWriter file = File.CreateText(@"C:\Users\waruna\Desktop\gencbs\gencbs\test\data\Resources\Labours\doc1.json"))
-            //{
-            //    file.Write(result);
-            //    file.Close();
-            //}
+            Resource r1 = new Resource("doctor1", doctorType_A, 100);// { type = new ResourceType() { name = "type1" }, efficiency = 100 };
+            r1.BookedTime = roster1;
+            Resource r2 = new Resource("doctor2", doctorType_A, 80);
+            r2.BookedTime = roster1;
 
-            String jsonString = File.ReadAllText(@"C:\Users\waruna\Desktop\gencbs\gencbs\test\data\Resources\Labours\doc1.json");
-            var doctor = serializer.Deserialize<LinkedList<Resource>>(jsonString);
-            Console.WriteLine(doctor.First.Value);
+            LinkedList<Resource> resourceList = new LinkedList<Resource>();
+            resourceList.AddLast(r1);
+            resourceList.AddLast(r2);
 
-            result = serializer.Serialize(r2);
-            Console.WriteLine(result);
+
+            JsonSerializer serializer = new JsonSerializer();
+
+
+            foreach (Resource resource in resourceList)
+            {
+                using (StreamWriter file = File.CreateText(@"C:\Users\waruna\Desktop\gencbs\gencbs\test\data\Resources\Labours\" + resource.name + ".json"))
+                using (JsonWriter jsonWriter = new JsonTextWriter(file))
+                {
+                    serializer.Serialize(jsonWriter, resource);
+                    if(resource.Equals(resourceList.Last))
+                    {
+                        file.Close();
+                    }
+                    
+                }
+            }
+            
+
+            String jsonString = File.ReadAllText(@"C:\Users\waruna\Desktop\gencbs\gencbs\test\data\Resources\Labours\doc2.json");
+            Console.WriteLine(jsonString);
+
+            //deserializing the json file into a Resource object
+            Resource deserializedResource = JsonConvert.DeserializeObject<Resource>(jsonString);
+
             Console.Read();
         }
     }
