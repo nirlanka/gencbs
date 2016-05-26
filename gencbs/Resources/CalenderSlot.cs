@@ -23,7 +23,7 @@ namespace gencbs.Resources
         public override timeSlot intersect(timeSlot slot)
         {
             timeSlot temp = new timeSlot(slot.startTime,slot.endTime);
-            Console.WriteLine(slot);
+            //Console.WriteLine(slot);
 
             //creates the corresponding slot on the same week
             int startGap =  this.startTime.DayOfWeek - slot.startTime.DayOfWeek;

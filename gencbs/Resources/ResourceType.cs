@@ -11,9 +11,10 @@ namespace gencbs.Resources
         public String typeName { get;  set; }
         public int setupCost { get;  set; }
 
-        public ResourceType(String name)
+        public ResourceType(String name, int setupcost = 0)
         {
             this.typeName = name;
+            this.setupCost = setupcost;
         }
 
         public override bool Equals(object obj)

@@ -13,12 +13,12 @@ namespace gencbs.Resources
         public ResourceType type { get;  set; }
         public String name;
         public int id{get;  set;}
-
+        public int efficiency { get; set; }
+        public int costPerHour { get; set; }
         public LinkedList<timeSlot> availability = new LinkedList<timeSlot>();
 
-         // 
-        private LinkedList<CalenderSlot> roster;      
-        private int efficiency = 100;
+        public LinkedList<CalenderSlot> roster { get; set; }     
+        
         public LinkedList<timeSlot> BookedTime { get; set; }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace gencbs.Resources
         /// </summary>
         /// <param name="type"></param>
         /// <param name="efficiency"></param>
-        public Resource(String name, ResourceType type, int efficiency)
+        public Resource(String name, ResourceType type, int efficiency = 50, int costPerHour = 500)
         {
             Interlocked.Increment(ref nextId);  //Increment the nextId variable in a thread safe manner
             this.id = nextId;   //add Id to the Resource object
@@ -34,20 +34,26 @@ namespace gencbs.Resources
             this.name = name;
             this.type = type;
             this.efficiency = efficiency;
+            this.costPerHour = costPerHour;
        
             BookedTime = new LinkedList<timeSlot>();
             this.BookedTime = new LinkedList<timeSlot>();
+            //this.updateAvailabilityList();
         }
+
+
 
         public Resource()
         {
             // TODO: Complete member initialization
         }
 
+
+
         /// <summary>
         /// update the availability list by checking the bookde list and roster of the resource
         /// </summary>
-        private void updateAvailabilityList()
+        public void updateAvailabilityList()
         {
             availability.Clear(); //remove all nodes of the availabilty list
             
@@ -103,10 +109,11 @@ namespace gencbs.Resources
         /// get the cost of this resource considering diffrent parameters
         /// </summary>
         /// <returns></returns>
-        public int getCost()
+        public int getCost(TimeSpan duration)
         {
             int setUpCost = type.setupCost;
-            int totalCost = setUpCost;
+            int timeCost = this.costPerHour * duration.Hours * (100 / this.efficiency);
+            int totalCost = setUpCost + timeCost;
 
 
             return totalCost;        
@@ -122,10 +129,10 @@ namespace gencbs.Resources
         {
             bool isAvailable = false;
 
-            foreach (timeSlot slot in BookedTime)
+            foreach (timeSlot slot in availability)
             {
                 isAvailable = slot.isFree(start, new TimeSpan(0, (int)(timeSpan.TotalMinutes * 100 / efficiency), 0) );
-                if (!isAvailable) break;
+                if (isAvailable) break;
             }
             //check availability linked list
             

@@ -10,13 +10,13 @@ namespace gencbs.Jobs
     class Job
     {
         private static int nextId= 0;
-        private DateTime EPST; //Earliest Possible Start time
-        private DateTime dueDate;
-        private TimeSpan duration;
-        public int jobID{ get; private set;}
+        public DateTime EPST{ get; set;} //Earliest Possible Start time
+        public DateTime dueDate { get; set; }
+        public TimeSpan duration { get; set; }
+        public int jobID{ get; set;}
 
-        public String jobName { get; private set; }
-        public LinkedList<res> resources;
+        public String jobName { get; set; }
+        public LinkedList<ResourceForJob> requredResources { get; set; }
 
 
         public Job()
@@ -26,17 +26,23 @@ namespace gencbs.Jobs
         }
 
         //create a resource pool for the job
-
-
-        //get the resource list
-        public List<String> getResourceList()
+        public LinkedList<LinkedList<Resources.Resource>> createResourcePool()
         {
-            List<String> list = new List<string>();
-            foreach(res r in resources)
-            {
-                list.Add(r.resourceType);
-            }
-            return list;
+            return null;
         }
+
+
+
+
+        ////get the resource list
+        //public List<String> getResourceList()
+        //{
+        //    List<String> list = new List<string>();
+        //    foreach(res r in requredResources)
+        //    {
+        //        list.Add(r.resourceType);
+        //    }
+        //    return list;
+        //}
     }
 }
