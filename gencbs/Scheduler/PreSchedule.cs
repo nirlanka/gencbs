@@ -17,6 +17,10 @@ namespace gencbs.Scheduler
 
         }
 
+        /// <summary>
+        /// get all the resource types stored as json files
+        /// </summary>
+        /// <returns></returns>
         public static LinkedList<ResourceType> getResourcTypes()
         {
             LinkedList<ResourceType> typeList = new LinkedList<ResourceType>();
@@ -32,6 +36,10 @@ namespace gencbs.Scheduler
             return typeList;
         }
 
+        /// <summary>
+        /// extract all the resources stored as json files
+        /// </summary>
+        /// <returns></returns>
         public static LinkedList<Resource> getResourcesList()
         {
             LinkedList<Resource> resourceList = new LinkedList<Resource>();

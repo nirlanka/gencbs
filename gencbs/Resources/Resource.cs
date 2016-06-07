@@ -139,6 +139,37 @@ namespace gencbs.Resources
             return isAvailable;
         }
 
+        /// <summary>
+        /// intersect availability list of this resource with any given linked list of timeslots.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public LinkedList<timeSlot> intersectAvailabilityList(LinkedList<timeSlot> list)
+        {
+            if (list == null) return this.availability;
+            LinkedList<timeSlot> result = new LinkedList<timeSlot>();
+
+            LinkedListNode<timeSlot> node = list.First;
+
+            foreach (timeSlot slot in this.availability)
+            {
+                while (node != null)
+                {
+                    if (slot.endTime <= node.Value.startTime) break;
+                    if (node.Value.endTime <= slot.startTime)
+                    {
+                        node = node.Next;
+                        continue;
+                    }
+                    result.AddLast( slot.intersect(node.Value));
+                }
+                if (node == null) break;
+            }
+
+            return result;
+        }
+
+
 
         /// <summary>
         /// Add new timeSlot to the linked list
