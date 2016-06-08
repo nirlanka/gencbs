@@ -8,7 +8,7 @@ using gencbs.Resources;
 
 namespace gencbs.Jobs
 {
-    class Job
+    class Job : IComparable<Job>
     {
         private static int nextId= 0;
         public DateTime EPST{ get; set;} //Earliest Possible Start time
@@ -16,6 +16,8 @@ namespace gencbs.Jobs
         public TimeSpan duration { get; set; }
         public int delayPanaltyForHour { get; set; }
         public int jobID{ get; set;}
+
+        public Double fitness { get; set; }
 
         public String jobName { get; set; }
         public LinkedList<ResourceForJob> requiredResources { get; set; }
@@ -42,6 +44,11 @@ namespace gencbs.Jobs
 
         //create a resource pool for the job
         public LinkedList<LinkedList<Resources.Resource>> createResourcePool()
+        {
+            return null;
+        }
+
+        public Job cross(Job job, int breakPoint)
         {
             return null;
         }
@@ -98,12 +105,15 @@ namespace gencbs.Jobs
             }
 
             cost += calculateDelayPanalty();
-
+            if (cost == 0) return 1; //to avoid devision by zero
             return cost;
         }
 
-        
 
+        public int CompareTo(Job job)
+        {
+            return this.fitness.CompareTo(job.fitness);
+        }
 
 
 
