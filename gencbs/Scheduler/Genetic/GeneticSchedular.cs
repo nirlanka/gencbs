@@ -71,12 +71,13 @@ namespace gencbs.Scheduler.Genetic
             for (int i = 0; i < crossoverLimit / 2; i++)
             {
                 selection = selectParentIndex();
-                newJobs = crossover(population[selection[1]], population[selection[1]]);
+                newJobs = crossover(population[selection[0]], population[selection[1]]);
                 this.nextGeneration[2*i] = new Job(newJobs[0]);
                 this.nextGeneration[2 * i + 1] = new Job(newJobs[1]);
             }
         }
 
+       
         /// <summary>
         /// cross over two individuals to generate two offsprings
         /// </summary>
@@ -103,6 +104,12 @@ namespace gencbs.Scheduler.Genetic
 
             return offsprings;
         }
+
+        public void mutation(Job job)
+        {
+
+        }
+
 
         /// <summary>
         /// select two parents from the initial population for crossovers, 
