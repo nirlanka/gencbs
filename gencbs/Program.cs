@@ -73,10 +73,12 @@ namespace gencbs
 
             JsonSerializer serializer = new JsonSerializer();
 
+			string mainResFolder = "/home/nir/Desktop/data/proj/gencbs/gencbs/test/data";
+			//string mainResFolder = "C:\Users\waruna\Desktop\gencbs\gencbs\test\data";
 
             foreach (Resource resource in resourceList)
             {
-                using (StreamWriter file = File.CreateText(@"C:\Users\waruna\Desktop\gencbs\gencbs\test\data\Resources\Labours\" + resource.name + ".json"))
+				using (StreamWriter file = File.CreateText(Path.Combine(mainResFolder, "Resources", "Labours", resource.name+".json")))
                 using (JsonWriter jsonWriter = new JsonTextWriter(file))
                 {
                     serializer.Serialize(jsonWriter, resource);
@@ -88,7 +90,7 @@ namespace gencbs
                 }
             }
 
-            using (StreamWriter file = File.CreateText(@"C:\Users\waruna\Desktop\gencbs\gencbs\test\data\Calenders\roster1.json"))
+			using (StreamWriter file = File.CreateText (Path.Combine(mainResFolder, "Calenders", "roster1.json")))
             using (JsonWriter jsonWriter = new JsonTextWriter(file))
             {
                 serializer.Serialize(jsonWriter, roster1);
@@ -96,10 +98,11 @@ namespace gencbs
             }
             
 
-            String jsonString = File.ReadAllText(@"C:\Users\waruna\Desktop\gencbs\gencbs\test\data\Resources\Labours\doc2.json");
+			String jsonString = File.ReadAllText(Path.Combine(mainResFolder, "Resources", "Labours", "doctor2.json"));
+			// os.path.join("","")
             //Console.WriteLine(jsonString);
 
-            String directory = @"C:\Users\waruna\Desktop\gencbs\gencbs\test\data\Resources\Labours";
+			String directory = Path.Combine(mainResFolder, "Resources", "Labours");
             String[] labournames = Directory.GetFiles(directory);
 
             LinkedList<Resource> labourList = new LinkedList<Resource>();
@@ -110,10 +113,10 @@ namespace gencbs
                 labourList.AddLast(temp);
             }
 
-            //foreach (Resource res in labourList)
-            //{
-            //    Console.WriteLine(res.name);
-            //}
+            foreach (Resource res in labourList)
+            {
+                Console.WriteLine(res.name);
+            }
 
             //deserializing the json file into a Resource object
             Resource deserializedResource = JsonConvert.DeserializeObject<Resource>(jsonString);
