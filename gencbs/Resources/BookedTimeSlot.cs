@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace gencbs.Resources
 {
-    class BookedTimeSlot : timeSlot
+    class BookedTimeSlot : TimeSlot
     {
         public int bookedJobId { get; set; }
 

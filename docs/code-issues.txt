@@ -1,0 +1,4 @@
+﻿# Implementation issues, oversights and conflicts
+
+- `roster` in a resource is saved in (serialized JSON) as data, instead of a reference to the existing roster calendar file.
+- How do we get the resource object in its subclass (e.g. `Labour`)?

@@ -54,10 +54,10 @@ namespace gencbs.Jobs
         }
 
         //we have to consider the efficiency of the resources when gettig the intersection
-        private LinkedList<timeSlot> getIntersection()
+        private LinkedList<TimeSlot> getIntersection()
         {
             LinkedListNode<ResourceForJob> node = this.requiredResources.First;
-            LinkedList<timeSlot> result = node.Value.allocated_resource.intersectAvailabilityList(node.Next.Value.allocated_resource.availability);
+            LinkedList<TimeSlot> result = node.Value.allocated_resource.intersectAvailabilityList(node.Next.Value.allocated_resource.availability);
             node = node.Next;
             while (node.Next != null)
             {
@@ -73,10 +73,10 @@ namespace gencbs.Jobs
         /// <returns></returns>
         private int calculateDelayPanalty()
         {
-            LinkedList<timeSlot> intersectionOfTimes = this.getIntersection();
+            LinkedList<TimeSlot> intersectionOfTimes = this.getIntersection();
 
             //get the least posible starting time of the job
-            foreach (timeSlot slot in intersectionOfTimes)
+            foreach (TimeSlot slot in intersectionOfTimes)
             {
                 if (slot.TimeSpan >= this.duration)
                 {

@@ -56,15 +56,16 @@
     <Compile Include="Resources\Machine.cs" />
     <Compile Include="Resources\Resource.cs" />
     <Compile Include="Resources\ResourceType.cs" />
-    <Compile Include="Resources\timeSlot.cs" />
     <Compile Include="Scheduler\Genetic\GeneticSchedular.cs" />
     <Compile Include="Scheduler\PreSchedule.cs" />
     <Compile Include="Scheduler\ResourcePoolNode.cs" />
+    <Compile Include="Data.cs" />
+    <Compile Include="Resources\TimeSlot.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="test\data\Calenders\" />

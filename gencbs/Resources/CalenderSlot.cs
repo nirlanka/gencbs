@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace gencbs.Resources
 {
-    class CalenderSlot : timeSlot
+    public class CalenderSlot : TimeSlot
     {
         DayOfWeek day;
 
@@ -20,16 +20,16 @@ namespace gencbs.Resources
         /// </summary>
         /// <param name="slot"></param>
         /// <returns></returns>
-        public override timeSlot intersect(timeSlot slot)
+        public override TimeSlot intersect(TimeSlot slot)
         {
-            timeSlot temp = new timeSlot(slot.startTime,slot.endTime);
+            TimeSlot temp = new TimeSlot(slot.startTime,slot.endTime);
             //Console.WriteLine(slot);
 
             //creates the corresponding slot on the same week
             int startGap =  this.startTime.DayOfWeek - slot.startTime.DayOfWeek;
             int endGap = this.endTime.DayOfWeek - slot.endTime.DayOfWeek;
 
-            timeSlot rosterTemp = new timeSlot(slot.startTime, slot.endTime);
+            TimeSlot rosterTemp = new TimeSlot(slot.startTime, slot.endTime);
            
             rosterTemp.startTime = rosterTemp.startTime.AddDays(startGap).Add(this.startTime.TimeOfDay - slot.startTime.TimeOfDay);
             rosterTemp.endTime = rosterTemp.endTime.AddDays(endGap).Add(this.endTime.TimeOfDay - slot.endTime.TimeOfDay);

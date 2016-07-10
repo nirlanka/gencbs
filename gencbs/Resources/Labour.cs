@@ -9,7 +9,7 @@ namespace gencbs.Resources
     class Labour : Resource
     {
         public Labour(String name, ResourceType type, int efficiency)
-            : base(name, type,efficiency)
+            : base(name, type, efficiency)
         {
 
         }

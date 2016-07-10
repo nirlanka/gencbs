@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Collections;
+using gencbs;
 
 namespace gencbs.Resources
 {
-    class Resource
+    public class Resource
     {
         private static int nextId = 0;  //this value should changed to the last count of the stored objects
         public ResourceType type { get;  set; }
@@ -15,18 +17,20 @@ namespace gencbs.Resources
         public int id{get;  set;}
         public int efficiency { get; set; }
         public int costPerHour { get; set; }
-        public LinkedList<timeSlot> availability = new LinkedList<timeSlot>();
+        public LinkedList<TimeSlot> availability = new LinkedList<TimeSlot>();
 
         public LinkedList<CalenderSlot> roster { get; set; }     
+		public string _roster = null;
         
-        public LinkedList<timeSlot> BookedTime { get; set; }
+        public LinkedList<TimeSlot> BookedTime { get; set; }
+		public string _bookedTime = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="type"></param>
         /// <param name="efficiency"></param>
-        public Resource(String name, ResourceType type, int efficiency = 50, int costPerHour = 500)
+        public Resource (String name, ResourceType type, int efficiency = 50, int costPerHour = 500)
         {
             Interlocked.Increment(ref nextId);  //Increment the nextId variable in a thread safe manner
             this.id = nextId;   //add Id to the Resource object
@@ -36,8 +40,8 @@ namespace gencbs.Resources
             this.efficiency = efficiency;
             this.costPerHour = costPerHour;
        
-            BookedTime = new LinkedList<timeSlot>();
-            this.BookedTime = new LinkedList<timeSlot>();
+//            BookedTime = new LinkedList<TimeSlot>();
+            this.BookedTime = new LinkedList<TimeSlot>();
             //this.updateAvailabilityList();
         }
 
@@ -57,12 +61,12 @@ namespace gencbs.Resources
         {
             availability.Clear(); //remove all nodes of the availabilty list
             
-            LinkedList<timeSlot> tempList = new LinkedList<timeSlot>();
-            timeSlot tempSlot = new timeSlot();
+            LinkedList<TimeSlot> tempList = new LinkedList<TimeSlot>();
+            TimeSlot tempSlot = new TimeSlot();
             
             //***do something for the null booked list.
 
-            LinkedListNode<timeSlot> node = BookedTime.First;
+            LinkedListNode<TimeSlot> node = BookedTime.First;
             while(node != null)
             {
                 tempSlot.startTime = node.Value.endTime;
@@ -78,7 +82,7 @@ namespace gencbs.Resources
             //now intersect tempSLot with calander of the resource
 
             node = tempList.First;
-            timeSlot availableSlot = new timeSlot();
+            TimeSlot availableSlot = new TimeSlot();
 
             while (node != null)
             {
@@ -129,9 +133,9 @@ namespace gencbs.Resources
         {
             bool isAvailable = false;
 
-            foreach (timeSlot slot in availability)
+            foreach (TimeSlot slot in availability)
             {
-                isAvailable = slot.isFree(start, new TimeSpan(0, (int)(timeSpan.TotalMinutes * 100 / efficiency), 0) );
+                isAvailable = slot.IsFree(start, new TimeSpan(0, (int)(timeSpan.TotalMinutes * 100 / efficiency), 0) );
                 if (isAvailable) break;
             }
             //check availability linked list
@@ -144,14 +148,14 @@ namespace gencbs.Resources
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public LinkedList<timeSlot> intersectAvailabilityList(LinkedList<timeSlot> list)
+        public LinkedList<TimeSlot> intersectAvailabilityList(LinkedList<TimeSlot> list)
         {
             if (list == null) return this.availability;
-            LinkedList<timeSlot> result = new LinkedList<timeSlot>();
+            LinkedList<TimeSlot> result = new LinkedList<TimeSlot>();
 
-            LinkedListNode<timeSlot> node = list.First;
+            LinkedListNode<TimeSlot> node = list.First;
 
-            foreach (timeSlot slot in this.availability)
+            foreach (TimeSlot slot in this.availability)
             {
                 while (node != null)
                 {
@@ -172,15 +176,15 @@ namespace gencbs.Resources
 
 
         /// <summary>
-        /// Add new timeSlot to the linked list
+        /// Add new TimeSlot to the linked list
         /// </summary>
-        /// <param name="startTime"> start time of the timeSlot</param>
-        /// <param name="endTime"> end time of the timeSlot</param>
+        /// <param name="startTime"> start time of the TimeSlot</param>
+        /// <param name="endTime"> end time of the TimeSlot</param>
         /// </param>
         public void insertTimeSlot(DateTime startTime, DateTime endTime)
         {
-            timeSlot timeSlotNode = new timeSlot(startTime, endTime);
-            LinkedListNode<timeSlot> node = null;
+            TimeSlot TimeSlotNode = new TimeSlot(startTime, endTime);
+            LinkedListNode<TimeSlot> node = null;
 
                 node = BookedTime.First;                       
 
@@ -188,12 +192,39 @@ namespace gencbs.Resources
             {
                 if (node.Value.StartTime > startTime)
                 {
-                    //roster.AddBefore(node, timeSlotNode);
+                    //roster.AddBefore(node, TimeSlotNode);
                     break;
                 }
                 node = node.Next;
             }
         }
+
+		public void PrepareForSerialization()
+		{
+			// TODO: save new data
+
+			// avoid internal duplication storage
+
+			if (this._roster == null) {
+				// TODO: Introduce better (unique?) hash function
+				this._roster = this.GetHashCode ().ToString ();
+				gencbs.Data.addRoster (this._roster, this.roster);
+			}
+			this.roster = null;
+			this.availability = null; // TODO: Check if `availability` needs to be stored
+
+//			if (this._bookedTime == null) {
+//				// TODO: Introduce better hash function
+//				this._bookedTime = DateTime.Now.ToString ();
+//			}
+//			this.BookedTime = null;
+		}
+
+		public void RestoreFromSerialization()
+		{
+			this.roster = Data.getRoster (this._roster);
+//			this.BookedTime = Data.getBookedTime (this._bookedTime);
+		}
 
     }
 }

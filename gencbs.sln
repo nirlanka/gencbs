@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gencbs", "gencbs\gencbs.csproj", "{51BEC820-69BB-4EC3-B798-1DA237A5817B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "..\..\..\..\-data\proj\gencbs\UI\UI.csproj", "{7B91C692-8C71-4A00-8501-46C37AF14BBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,13 @@ Global
 		{51BEC820-69BB-4EC3-B798-1DA237A5817B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51BEC820-69BB-4EC3-B798-1DA237A5817B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51BEC820-69BB-4EC3-B798-1DA237A5817B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B91C692-8C71-4A00-8501-46C37AF14BBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B91C692-8C71-4A00-8501-46C37AF14BBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B91C692-8C71-4A00-8501-46C37AF14BBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B91C692-8C71-4A00-8501-46C37AF14BBA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = gencbs\gencbs.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

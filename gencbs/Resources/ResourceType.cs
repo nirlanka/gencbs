@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace gencbs.Resources
 {
-    class ResourceType
+    public class ResourceType
     {
         public String typeName { get;  set; }
         public int setupCost { get;  set; }
@@ -29,6 +29,11 @@ namespace gencbs.Resources
         {
             return base.GetHashCode();
         }
+
+		public override string ToString ()
+		{
+			return typeName;
+		}
                
     }
 }
