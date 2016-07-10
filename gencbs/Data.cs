@@ -17,6 +17,7 @@ namespace gencbs
 		}
 
 		// TODO: Read this from App.config
+//		public static string RESOURCES_DIR = "/home/nir/Desktop/data/proj/gencbs/gencbs/test/data";
 		public static string RESOURCES_DIR = "/home/nir/Desktop/data/proj/gencbs/gencbs/test/data";
 //		public string RESOURCES_DIR = "C:\Users\waruna\Desktop\gencbs\gencbs\test\data";
 			
@@ -35,7 +36,7 @@ namespace gencbs
 		public static void Restore ()
 		{
 			String jsonString;
-			String[] labourerFiles = Directory.GetFiles(Path.Combine(RESOURCES_DIR, "Resources", "Labours"));
+			String[] labourerFiles = Directory.GetFiles (Path.Combine (RESOURCES_DIR, "Resources", "Labours"));
 			foreach (string labourer in labourerFiles)
 			{
 				jsonString = File.ReadAllText (labourer);
