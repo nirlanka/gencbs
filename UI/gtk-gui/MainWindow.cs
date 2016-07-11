@@ -3,49 +3,118 @@
 
 public partial class MainWindow
 {
+	private global::Gtk.UIManager UIManager;
+	
+	private global::Gtk.Action refreshAction;
+	
+	private global::Gtk.Action copyAction;
+	
+	private global::Gtk.Action addAction;
+	
+	private global::Gtk.Action removeAction;
+	
+	private global::Gtk.Action saveAction;
+	
+	private global::Gtk.Action refreshAction1;
+	
+	private global::Gtk.Action copyAction1;
+	
+	private global::Gtk.Action addAction1;
+	
+	private global::Gtk.Action deleteAction;
+	
+	private global::Gtk.Action saveAction1;
+	
 	private global::Gtk.VBox vbox4;
+	
+	private global::Gtk.Toolbar toolbar1;
+	
+	private global::Gtk.Table table1;
 	
 	private global::Gtk.ComboBox cmbOne;
 	
-	private global::Gtk.Button btnTwo;
+	private global::Gtk.Label label1;
 
 	protected virtual void Build ()
 	{
 		global::Stetic.Gui.Initialize (this);
 		// Widget MainWindow
+		this.UIManager = new global::Gtk.UIManager ();
+		global::Gtk.ActionGroup w1 = new global::Gtk.ActionGroup ("Default");
+		this.refreshAction = new global::Gtk.Action ("refreshAction", null, null, "gtk-refresh");
+		w1.Add (this.refreshAction, null);
+		this.copyAction = new global::Gtk.Action ("copyAction", null, null, "gtk-copy");
+		w1.Add (this.copyAction, null);
+		this.addAction = new global::Gtk.Action ("addAction", null, null, "gtk-add");
+		w1.Add (this.addAction, null);
+		this.removeAction = new global::Gtk.Action ("removeAction", null, null, "gtk-remove");
+		this.removeAction.HideIfEmpty = false;
+		w1.Add (this.removeAction, null);
+		this.saveAction = new global::Gtk.Action ("saveAction", null, null, "gtk-save");
+		this.saveAction.HideIfEmpty = false;
+		w1.Add (this.saveAction, null);
+		this.refreshAction1 = new global::Gtk.Action ("refreshAction1", null, null, "gtk-refresh");
+		w1.Add (this.refreshAction1, null);
+		this.copyAction1 = new global::Gtk.Action ("copyAction1", null, null, "gtk-copy");
+		w1.Add (this.copyAction1, null);
+		this.addAction1 = new global::Gtk.Action ("addAction1", null, null, "gtk-add");
+		w1.Add (this.addAction1, null);
+		this.deleteAction = new global::Gtk.Action ("deleteAction", null, null, "gtk-delete");
+		w1.Add (this.deleteAction, null);
+		this.saveAction1 = new global::Gtk.Action ("saveAction1", null, null, "gtk-save");
+		w1.Add (this.saveAction1, null);
+		this.UIManager.InsertActionGroup (w1, 0);
+		this.AddAccelGroup (this.UIManager.AccelGroup);
 		this.Name = "MainWindow";
-		this.Title = global::Mono.Unix.Catalog.GetString ("MainWindow");
-		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
+		this.Title = global::Mono.Unix.Catalog.GetString ("GenCBS - Data");
+		this.WindowPosition = ((global::Gtk.WindowPosition)(1));
+		this.Resizable = false;
 		// Container child MainWindow.Gtk.Container+ContainerChild
 		this.vbox4 = new global::Gtk.VBox ();
 		this.vbox4.Name = "vbox4";
 		this.vbox4.Spacing = 6;
 		// Container child vbox4.Gtk.Box+BoxChild
-		this.cmbOne = global::Gtk.ComboBox.NewText ();
-		this.cmbOne.Name = "cmbOne";
-		this.vbox4.Add (this.cmbOne);
-		global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.cmbOne]));
-		w1.Position = 0;
-		w1.Expand = false;
-		w1.Fill = false;
-		// Container child vbox4.Gtk.Box+BoxChild
-		this.btnTwo = new global::Gtk.Button ();
-		this.btnTwo.CanFocus = true;
-		this.btnTwo.Events = ((global::Gdk.EventMask)(768));
-		this.btnTwo.Name = "btnTwo";
-		this.btnTwo.UseUnderline = true;
-		this.btnTwo.Label = global::Mono.Unix.Catalog.GetString ("_OK");
-		this.vbox4.Add (this.btnTwo);
-		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.btnTwo]));
-		w2.Position = 1;
+		this.UIManager.AddUiFromString ("<ui><toolbar name='toolbar1'><toolitem name='refreshAction1' action='refreshAction1'/><toolitem name='copyAction1' action='copyAction1'/><toolitem name='addAction1' action='addAction1'/><toolitem name='deleteAction' action='deleteAction'/><toolitem name='saveAction1' action='saveAction1'/></toolbar></ui>");
+		this.toolbar1 = ((global::Gtk.Toolbar)(this.UIManager.GetWidget ("/toolbar1")));
+		this.toolbar1.Name = "toolbar1";
+		this.toolbar1.ShowArrow = false;
+		this.toolbar1.ToolbarStyle = ((global::Gtk.ToolbarStyle)(2));
+		this.vbox4.Add (this.toolbar1);
+		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.toolbar1]));
+		w2.Position = 0;
 		w2.Expand = false;
 		w2.Fill = false;
+		// Container child vbox4.Gtk.Box+BoxChild
+		this.table1 = new global::Gtk.Table (((uint)(3)), ((uint)(3)), false);
+		this.table1.Name = "table1";
+		this.table1.RowSpacing = ((uint)(6));
+		this.table1.ColumnSpacing = ((uint)(6));
+		// Container child table1.Gtk.Table+TableChild
+		this.cmbOne = global::Gtk.ComboBox.NewText ();
+		this.cmbOne.Name = "cmbOne";
+		this.table1.Add (this.cmbOne);
+		global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1 [this.cmbOne]));
+		w3.LeftAttach = ((uint)(1));
+		w3.RightAttach = ((uint)(2));
+		w3.XOptions = ((global::Gtk.AttachOptions)(4));
+		w3.YOptions = ((global::Gtk.AttachOptions)(4));
+		// Container child table1.Gtk.Table+TableChild
+		this.label1 = new global::Gtk.Label ();
+		this.label1.Name = "label1";
+		this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("Resource type");
+		this.table1.Add (this.label1);
+		global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.label1]));
+		w4.XOptions = ((global::Gtk.AttachOptions)(4));
+		w4.YOptions = ((global::Gtk.AttachOptions)(4));
+		this.vbox4.Add (this.table1);
+		global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.table1]));
+		w5.Position = 1;
 		this.Add (this.vbox4);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 400;
-		this.DefaultHeight = 300;
+		this.DefaultWidth = 455;
+		this.DefaultHeight = 360;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 	}
