@@ -22,27 +22,35 @@ namespace gencbs
 //		public string RESOURCES_DIR = "C:\Users\waruna\Desktop\gencbs\gencbs\test\data";
 			
 		public static Hashtable Rosters;
-		public static Hashtable Labourers;
-//		public static Hashtable BookedTimes;
+		public static Hashtable AllResources;
+		public static Hashtable ResTypes;
 
 		public static void Init ()
 		{
 			Rosters = new Hashtable ();
-			Labourers = new Hashtable ();
-//			BookedTimes = new Hashtable ();
+			AllResources = new Hashtable ();
+			ResTypes = new Hashtable ();
 		}
 
 
 		public static void Restore ()
 		{
 			String jsonString;
-			String[] labourerFiles = Directory.GetFiles (Path.Combine (RESOURCES_DIR, "Resources", "Labours"));
-			foreach (string labourer in labourerFiles)
+
+			String[] resourceTypeFiles = Directory.GetFiles (Path.Combine (RESOURCES_DIR, "ResourceTypes"));
+			foreach (string _restype in resourceTypeFiles)
 			{
-				jsonString = File.ReadAllText (labourer);
-				Resource res = JsonConvert.DeserializeObject<Resource> (jsonString);
-				res.RestoreFromSerialization ();
-				Data.addLabour (res);
+				jsonString = File.ReadAllText (_restype);
+				ResourceType restype = JsonConvert.DeserializeObject<ResourceType> (jsonString);
+				restype.RestoreFromSerialization ();
+				Data.addResourceType (restype);
+			}
+				
+			var resKeys = ResTypes.Keys;
+			foreach (var rt in resKeys) {
+				foreach (var res in ((ResourceType)ResTypes[rt]).resources) {
+					AllResources.Add(res.name, res);
+				}
 			}
 
 			String[] rosterFiles = Directory.GetFiles(Path.Combine(RESOURCES_DIR, "Calenders"));
@@ -59,18 +67,29 @@ namespace gencbs
 			JsonSerializer serializer = new JsonSerializer();
 
 			// Save labourers
-			foreach (string _res in Labourers.Keys)
+			foreach (string _res in AllResources.Keys)
 			{
-				Resource res = (Resource) (Labourers [_res]);
+				Resource res = (Resource) (AllResources [_res]);
 //				if (res._roster == null) {
 //					addRoster (res.name, res.roster);
 //				}
 				res.PrepareForSerialization ();
 
-				using (StreamWriter file = File.CreateText(Path.Combine(RESOURCES_DIR, "Resources", "Labours", res.name+".json")))
+				using (StreamWriter file = File.CreateText(Path.Combine(RESOURCES_DIR, "Resources", res.name+".json")))
 				using (JsonWriter jsonWriter = new JsonTextWriter(file))
 				{
 					serializer.Serialize (jsonWriter, res);
+				}
+			}
+
+			foreach (var _r in ResTypes) {
+				var r = (ResourceType) (ResTypes [_r]);
+				r.PrepareForSerialization ();
+
+				using (StreamWriter file = File.CreateText(Path.Combine(RESOURCES_DIR, "ResourceTypes", r.typeName+".json")))
+				using (JsonWriter jsonWriter = new JsonTextWriter(file))
+				{
+					serializer.Serialize (jsonWriter, r);
 				}
 			}
 
@@ -85,18 +104,6 @@ namespace gencbs
 					file.Close ();
 				}
 			}
-
-			// Save booked times
-//			foreach (var _bookedTimes in BookedTimes.Keys) 
-//			{
-//				LinkedList<timeSlot> bookedTimes = BookedTimes [_bookedTimes];
-//				using (StreamWriter file = File.CreateText (Path.Combine(RESOURCES_DIR, "Calenders", _bookedTimes+".json")))
-//				using (JsonWriter jsonWriter = new JsonTextWriter(file))
-//				{
-//					serializer.Serialize (jsonWriter, bookedTimes);
-//					file.Close ();
-//				}
-//			}
 		}
 
 
@@ -108,24 +115,30 @@ namespace gencbs
 		{
 			Rosters.Add (key, roster);
 		}
-			
-		public static Resource getLabour (string key)
+
+		public static ResourceType getResourceType (string key)
 		{
-			return (Resource) Labourers [key];
+			return (ResourceType) ResTypes [key];
 		}
-		public static void addLabour (Resource res)
+		public static void addResourceType (ResourceType res)
 		{
-			Labourers.Add (res.name, res);
+			ResTypes.Add (res.typeName, res);
 		}
 
-//		public static LinkedList<timeSlot> getBookedTime (string key)
-//		{
-//			return (LinkedList<timeSlot>) BookedTimes [key];
-//		}
-//		public static void addBookedTime (string key, LinkedList<timeSlot> bookedTimes)
-//		{
-//			BookedTimes.Add (key, bookedTimes);
-//		}
+		public static Resource getResource (string key)
+		{
+			return (Resource) AllResources [key];
+		}
+		public static void addResource (Resource res)
+		{
+			AllResources.Add (res.name, res);
+		}
+		public static Resource readResource (string name)
+		{
+			var jsonString = File.ReadAllText (Path.Combine (RESOURCES_DIR, "Resources", name+".json"));
+			return JsonConvert.DeserializeObject<Resource> (jsonString);
+		}
+			
 	}
 }
 

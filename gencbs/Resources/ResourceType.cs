@@ -10,6 +10,8 @@ namespace gencbs.Resources
     {
         public String typeName { get;  set; }
         public int setupCost { get;  set; }
+		public LinkedList<Resource> resources { get;  set; }
+		public LinkedList<string> _resources { get;  set; }
 
         public ResourceType(String name, int setupcost = 0)
         {
@@ -33,6 +35,18 @@ namespace gencbs.Resources
 		public override string ToString ()
 		{
 			return typeName;
+		}
+
+		public void PrepareForSerialization()
+		{
+			this.resources = null;
+		}
+
+		public void RestoreFromSerialization()
+		{
+			foreach (string res in _resources) {
+				resources.AddLast(Data.readResource (res));
+			}
 		}
                
     }
