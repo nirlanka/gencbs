@@ -27,13 +27,29 @@ public partial class MainWindow
 	
 	private global::Gtk.VBox vbox4;
 	
-	private global::Gtk.Toolbar toolbar1;
+	private global::Gtk.Toolbar toolbarMain;
 	
 	private global::Gtk.Table table1;
 	
-	private global::Gtk.ComboBox cmbOne;
+	private global::Gtk.HBox hbox2;
+	
+	private global::Gtk.ComboBox cmbResourceType1;
+	
+	private global::Gtk.ComboBox cmbResourceType2;
 	
 	private global::Gtk.Label label1;
+	
+	private global::Gtk.Label label2;
+	
+	private global::Gtk.Label label3;
+	
+	private global::Gtk.Label label4;
+	
+	private global::Gtk.Entry txtCostPerHour;
+	
+	private global::Gtk.Entry txtEfficiency;
+	
+	private global::Gtk.Entry txtName;
 
 	protected virtual void Build ()
 	{
@@ -53,11 +69,14 @@ public partial class MainWindow
 		this.saveAction = new global::Gtk.Action ("saveAction", null, null, "gtk-save");
 		this.saveAction.HideIfEmpty = false;
 		w1.Add (this.saveAction, null);
-		this.refreshAction1 = new global::Gtk.Action ("refreshAction1", null, null, "gtk-refresh");
+		this.refreshAction1 = new global::Gtk.Action ("refreshAction1", global::Mono.Unix.Catalog.GetString ("_Sync"), null, "gtk-refresh");
+		this.refreshAction1.ShortLabel = global::Mono.Unix.Catalog.GetString ("_Sync");
 		w1.Add (this.refreshAction1, null);
-		this.copyAction1 = new global::Gtk.Action ("copyAction1", null, null, "gtk-copy");
+		this.copyAction1 = new global::Gtk.Action ("copyAction1", global::Mono.Unix.Catalog.GetString ("_Clone"), null, "gtk-copy");
+		this.copyAction1.ShortLabel = global::Mono.Unix.Catalog.GetString ("_Clone");
 		w1.Add (this.copyAction1, null);
-		this.addAction1 = new global::Gtk.Action ("addAction1", null, null, "gtk-add");
+		this.addAction1 = new global::Gtk.Action ("addAction1", global::Mono.Unix.Catalog.GetString ("C_reate"), null, "gtk-add");
+		this.addAction1.ShortLabel = global::Mono.Unix.Catalog.GetString ("C_reate");
 		w1.Add (this.addAction1, null);
 		this.deleteAction = new global::Gtk.Action ("deleteAction", null, null, "gtk-delete");
 		w1.Add (this.deleteAction, null);
@@ -69,52 +88,147 @@ public partial class MainWindow
 		this.Title = global::Mono.Unix.Catalog.GetString ("GenCBS - Data");
 		this.WindowPosition = ((global::Gtk.WindowPosition)(1));
 		this.Resizable = false;
+		this.DefaultWidth = 800;
+		this.DefaultHeight = 600;
 		// Container child MainWindow.Gtk.Container+ContainerChild
 		this.vbox4 = new global::Gtk.VBox ();
 		this.vbox4.Name = "vbox4";
 		this.vbox4.Spacing = 6;
 		// Container child vbox4.Gtk.Box+BoxChild
-		this.UIManager.AddUiFromString ("<ui><toolbar name='toolbar1'><toolitem name='refreshAction1' action='refreshAction1'/><toolitem name='copyAction1' action='copyAction1'/><toolitem name='addAction1' action='addAction1'/><toolitem name='deleteAction' action='deleteAction'/><toolitem name='saveAction1' action='saveAction1'/></toolbar></ui>");
-		this.toolbar1 = ((global::Gtk.Toolbar)(this.UIManager.GetWidget ("/toolbar1")));
-		this.toolbar1.Name = "toolbar1";
-		this.toolbar1.ShowArrow = false;
-		this.toolbar1.ToolbarStyle = ((global::Gtk.ToolbarStyle)(2));
-		this.vbox4.Add (this.toolbar1);
-		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.toolbar1]));
+		this.UIManager.AddUiFromString ("<ui><toolbar name='toolbarMain'><toolitem name='refreshAction1' action='refreshAction1'/><toolitem name='copyAction1' action='copyAction1'/><toolitem name='addAction1' action='addAction1'/><toolitem name='deleteAction' action='deleteAction'/><toolitem name='saveAction1' action='saveAction1'/></toolbar></ui>");
+		this.toolbarMain = ((global::Gtk.Toolbar)(this.UIManager.GetWidget ("/toolbarMain")));
+		this.toolbarMain.Name = "toolbarMain";
+		this.toolbarMain.ShowArrow = false;
+		this.toolbarMain.ToolbarStyle = ((global::Gtk.ToolbarStyle)(2));
+		this.vbox4.Add (this.toolbarMain);
+		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.toolbarMain]));
 		w2.Position = 0;
 		w2.Expand = false;
 		w2.Fill = false;
 		// Container child vbox4.Gtk.Box+BoxChild
-		this.table1 = new global::Gtk.Table (((uint)(3)), ((uint)(3)), false);
+		this.table1 = new global::Gtk.Table (((uint)(4)), ((uint)(2)), false);
 		this.table1.Name = "table1";
 		this.table1.RowSpacing = ((uint)(6));
 		this.table1.ColumnSpacing = ((uint)(6));
 		// Container child table1.Gtk.Table+TableChild
-		this.cmbOne = global::Gtk.ComboBox.NewText ();
-		this.cmbOne.Name = "cmbOne";
-		this.table1.Add (this.cmbOne);
-		global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1 [this.cmbOne]));
-		w3.LeftAttach = ((uint)(1));
-		w3.RightAttach = ((uint)(2));
-		w3.XOptions = ((global::Gtk.AttachOptions)(4));
-		w3.YOptions = ((global::Gtk.AttachOptions)(4));
+		this.hbox2 = new global::Gtk.HBox ();
+		this.hbox2.Name = "hbox2";
+		this.hbox2.Spacing = 6;
+		// Container child hbox2.Gtk.Box+BoxChild
+		this.cmbResourceType1 = global::Gtk.ComboBox.NewText ();
+		this.cmbResourceType1.Name = "cmbResourceType1";
+		this.hbox2.Add (this.cmbResourceType1);
+		global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.cmbResourceType1]));
+		w3.Position = 0;
+		w3.Fill = false;
+		// Container child hbox2.Gtk.Box+BoxChild
+		this.cmbResourceType2 = global::Gtk.ComboBox.NewText ();
+		this.cmbResourceType2.Name = "cmbResourceType2";
+		this.hbox2.Add (this.cmbResourceType2);
+		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.cmbResourceType2]));
+		w4.Position = 1;
+		w4.Expand = false;
+		w4.Fill = false;
+		this.table1.Add (this.hbox2);
+		global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1 [this.hbox2]));
+		w5.TopAttach = ((uint)(1));
+		w5.BottomAttach = ((uint)(2));
+		w5.LeftAttach = ((uint)(1));
+		w5.RightAttach = ((uint)(2));
+		w5.XOptions = ((global::Gtk.AttachOptions)(4));
+		w5.YOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child table1.Gtk.Table+TableChild
 		this.label1 = new global::Gtk.Label ();
 		this.label1.Name = "label1";
+		this.label1.Xalign = 0F;
 		this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("Resource type");
 		this.table1.Add (this.label1);
-		global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.label1]));
-		w4.XOptions = ((global::Gtk.AttachOptions)(4));
-		w4.YOptions = ((global::Gtk.AttachOptions)(4));
+		global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1 [this.label1]));
+		w6.TopAttach = ((uint)(1));
+		w6.BottomAttach = ((uint)(2));
+		w6.XOptions = ((global::Gtk.AttachOptions)(4));
+		w6.YOptions = ((global::Gtk.AttachOptions)(4));
+		// Container child table1.Gtk.Table+TableChild
+		this.label2 = new global::Gtk.Label ();
+		this.label2.Name = "label2";
+		this.label2.Xalign = 0F;
+		this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("Resource name");
+		this.table1.Add (this.label2);
+		global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1 [this.label2]));
+		w7.XOptions = ((global::Gtk.AttachOptions)(4));
+		w7.YOptions = ((global::Gtk.AttachOptions)(4));
+		// Container child table1.Gtk.Table+TableChild
+		this.label3 = new global::Gtk.Label ();
+		this.label3.Name = "label3";
+		this.label3.Xalign = 0F;
+		this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("Efficiency");
+		this.table1.Add (this.label3);
+		global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.table1 [this.label3]));
+		w8.TopAttach = ((uint)(2));
+		w8.BottomAttach = ((uint)(3));
+		w8.XOptions = ((global::Gtk.AttachOptions)(4));
+		w8.YOptions = ((global::Gtk.AttachOptions)(4));
+		// Container child table1.Gtk.Table+TableChild
+		this.label4 = new global::Gtk.Label ();
+		this.label4.Name = "label4";
+		this.label4.Xalign = 0F;
+		this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("Cost /hr");
+		this.table1.Add (this.label4);
+		global::Gtk.Table.TableChild w9 = ((global::Gtk.Table.TableChild)(this.table1 [this.label4]));
+		w9.TopAttach = ((uint)(3));
+		w9.BottomAttach = ((uint)(4));
+		w9.XOptions = ((global::Gtk.AttachOptions)(4));
+		w9.YOptions = ((global::Gtk.AttachOptions)(4));
+		// Container child table1.Gtk.Table+TableChild
+		this.txtCostPerHour = new global::Gtk.Entry ();
+		this.txtCostPerHour.CanFocus = true;
+		this.txtCostPerHour.Name = "txtCostPerHour";
+		this.txtCostPerHour.IsEditable = true;
+		this.txtCostPerHour.InvisibleChar = '•';
+		this.table1.Add (this.txtCostPerHour);
+		global::Gtk.Table.TableChild w10 = ((global::Gtk.Table.TableChild)(this.table1 [this.txtCostPerHour]));
+		w10.TopAttach = ((uint)(3));
+		w10.BottomAttach = ((uint)(4));
+		w10.LeftAttach = ((uint)(1));
+		w10.RightAttach = ((uint)(2));
+		w10.XOptions = ((global::Gtk.AttachOptions)(4));
+		w10.YOptions = ((global::Gtk.AttachOptions)(4));
+		// Container child table1.Gtk.Table+TableChild
+		this.txtEfficiency = new global::Gtk.Entry ();
+		this.txtEfficiency.CanFocus = true;
+		this.txtEfficiency.Name = "txtEfficiency";
+		this.txtEfficiency.IsEditable = true;
+		this.txtEfficiency.InvisibleChar = '•';
+		this.table1.Add (this.txtEfficiency);
+		global::Gtk.Table.TableChild w11 = ((global::Gtk.Table.TableChild)(this.table1 [this.txtEfficiency]));
+		w11.TopAttach = ((uint)(2));
+		w11.BottomAttach = ((uint)(3));
+		w11.LeftAttach = ((uint)(1));
+		w11.RightAttach = ((uint)(2));
+		w11.XOptions = ((global::Gtk.AttachOptions)(4));
+		w11.YOptions = ((global::Gtk.AttachOptions)(4));
+		// Container child table1.Gtk.Table+TableChild
+		this.txtName = new global::Gtk.Entry ();
+		this.txtName.CanFocus = true;
+		this.txtName.Name = "txtName";
+		this.txtName.IsEditable = true;
+		this.txtName.MaxLength = 40;
+		this.txtName.InvisibleChar = '•';
+		this.table1.Add (this.txtName);
+		global::Gtk.Table.TableChild w12 = ((global::Gtk.Table.TableChild)(this.table1 [this.txtName]));
+		w12.LeftAttach = ((uint)(1));
+		w12.RightAttach = ((uint)(2));
+		w12.XOptions = ((global::Gtk.AttachOptions)(4));
+		w12.YOptions = ((global::Gtk.AttachOptions)(4));
 		this.vbox4.Add (this.table1);
-		global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.table1]));
-		w5.Position = 1;
+		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.table1]));
+		w13.Position = 1;
+		w13.Expand = false;
+		w13.Fill = false;
 		this.Add (this.vbox4);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 455;
-		this.DefaultHeight = 360;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 	}
