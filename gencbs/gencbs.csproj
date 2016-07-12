@@ -61,6 +61,7 @@
     <Compile Include="Scheduler\ResourcePoolNode.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="Resources\TimeSlot.cs" />
+    <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

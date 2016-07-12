@@ -42,15 +42,11 @@ namespace gencbs
 			{
 				jsonString = File.ReadAllText (_restype);
 				ResourceType restype = JsonConvert.DeserializeObject<ResourceType> (jsonString);
-				restype.RestoreFromSerialization ();
+				restype.resources = new LinkedList<Resource> ();
+				if (restype._resources == null)
+					restype._resources = new LinkedList<string> ();
+				restype.RestoreFromSerialization (); // includes loading resources
 				Data.addResourceType (restype);
-			}
-				
-			var resKeys = ResTypes.Keys;
-			foreach (var rt in resKeys) {
-				foreach (var res in ((ResourceType)ResTypes[rt]).resources) {
-					AllResources.Add(res.name, res);
-				}
 			}
 
 			String[] rosterFiles = Directory.GetFiles(Path.Combine(RESOURCES_DIR, "Calenders"));
@@ -82,8 +78,8 @@ namespace gencbs
 				}
 			}
 
-			foreach (var _r in ResTypes) {
-				var r = (ResourceType) (ResTypes [_r]);
+			foreach (var _r in ResTypes.Keys) {
+				var r = getResourceType ((string)_r);
 				r.PrepareForSerialization ();
 
 				using (StreamWriter file = File.CreateText(Path.Combine(RESOURCES_DIR, "ResourceTypes", r.typeName+".json")))
@@ -113,6 +109,7 @@ namespace gencbs
 		}
 		public static void addRoster (string key, LinkedList<CalenderSlot> roster)
 		{
+			Console.WriteLine ("roster");//debug
 			Rosters.Add (key, roster);
 		}
 
@@ -122,6 +119,7 @@ namespace gencbs
 		}
 		public static void addResourceType (ResourceType res)
 		{
+			Console.WriteLine (res.typeName);//debug
 			ResTypes.Add (res.typeName, res);
 		}
 
@@ -131,10 +129,12 @@ namespace gencbs
 		}
 		public static void addResource (Resource res)
 		{
+			Console.WriteLine (res.name);//debug
 			AllResources.Add (res.name, res);
 		}
 		public static Resource readResource (string name)
 		{
+			Console.WriteLine ("reading "+name);//debug
 			var jsonString = File.ReadAllText (Path.Combine (RESOURCES_DIR, "Resources", name+".json"));
 			return JsonConvert.DeserializeObject<Resource> (jsonString);
 		}
