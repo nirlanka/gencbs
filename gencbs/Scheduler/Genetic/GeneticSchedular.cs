@@ -88,7 +88,7 @@ namespace gencbs.Scheduler.Genetic
             int breakPoint = randomNumber.Next(job1.requiredResources.Count);
 
             offsprings[0] = new Job(job1);
-            offsprings[1] = new Job(job1);
+            offsprings[1] = new Job(job2);
 
             for (int i = 0; i < job1.requiredResources.Count; i++)
             {
@@ -105,9 +105,25 @@ namespace gencbs.Scheduler.Genetic
             return offsprings;
         }
 
-        public void mutation(Job job)
+        public void mutation() 
         {
+            for (int i = crossoverLimit; i < populationSize; i++)
+            {
+                this.nextGeneration[i] = mutate(this.population[i]);
+            }
+        }
 
+        /// <summary>
+        /// Select one randome resources from each individuals to be mutated and change them.
+        /// </summary>
+        public Job mutate(Job job)
+        {
+            int noOfResources = job.requiredResources.Count;
+            int mutationResourceNo = randomNumber.Next(noOfResources - 1);
+            ResourceType mutationResourceType = job.requiredResources.ElementAt(mutationResourceNo).resourceType;
+            Resource newSwapResource =  getRandomResource(mutationResourceType);
+            job.requiredResources.ElementAt(mutationResourceNo).allocated_resource = newSwapResource;
+            return job;
         }
 
 
