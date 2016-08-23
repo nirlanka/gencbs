@@ -18,8 +18,8 @@ namespace gencbs
 
 		// TODO: Read this from App.config
 //		public static string RESOURCES_DIR = "/home/nir/Desktop/data/proj/gencbs/gencbs/test/data";
-		public static string RESOURCES_DIR = "/home/nir/Desktop/data/proj/gencbs/gencbs/test/data";
-//		public string RESOURCES_DIR = "C:\Users\waruna\Desktop\gencbs\gencbs\test\data";
+        //public static string RESOURCES_DIR = "/home/nir/Desktop/data/proj/gencbs/gencbs/test/data";
+		public static string RESOURCES_DIR = "C:/Users/waruna/Desktop/gencbs/gencbs/test/data";
 			
 		public static Hashtable Rosters;
 		public static Hashtable AllResources;
@@ -32,7 +32,10 @@ namespace gencbs
 			ResTypes = new Hashtable ();
 		}
 
-
+        /// <summary>
+        /// what is this doing??
+        /// restoring data from json files??
+        /// </summary>
 		public static void Restore ()
 		{
 			String jsonString;

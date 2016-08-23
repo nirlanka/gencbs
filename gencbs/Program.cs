@@ -17,9 +17,11 @@ namespace gencbs
         {
 //			Test.createSimpleTestData ();
 
-			Data.Init ();
-			Data.Restore ();
+            //Data.Init ();
+            //Data.Restore ();
 
+
+            
 
             Console.Read();
         }
