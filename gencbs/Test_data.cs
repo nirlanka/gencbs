@@ -37,5 +37,19 @@ namespace gencbs
         ResourceType ahs_radiation_scientist = new ResourceType("ahs_radiation_scientist", 0);
 
         //other hospital staff.
+        //todo: add other hospital staff here
+
+
+        //rosters
+        //--todo: add set of different rosteres here
+
+
+        //---RESOURCES--
+        //DOCTORS
+        //todo: add doctors here
+
+
+        //NURSES
+        //todo: add nurses here
     }
 }

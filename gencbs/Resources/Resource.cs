@@ -47,7 +47,9 @@ namespace gencbs.Resources
             // TODO: Complete member initialization
         }
 
-
+        /// <summary>
+        /// update the availability list after a resource is allocated to a job.
+        /// </summary>
         public void updateAvailabilityList()
         {
             availability.Clear(); //remove all nodes of the availabilty list
@@ -67,6 +69,15 @@ namespace gencbs.Resources
                     tempSlot.endTime = tempSlot.startTime.AddMonths(3); //make the resource available for few months ahead from last booking
                 }
                 else tempSlot.endTime = node.Value.startTime;
+                tempList.AddLast(tempSlot);
+            }
+
+            //when booked time list is null
+            //add 3 months from the current date
+            if (node == null)
+            {
+                tempSlot.startTime = DateTime.Now;
+                tempSlot.endTime = tempSlot.startTime.AddMonths(3); //make the resource available for few months ahead from last booking
                 tempList.AddLast(tempSlot);
             }
 
@@ -110,6 +121,12 @@ namespace gencbs.Resources
             return totalCost;        
         }
 
+        /// <summary>
+        /// check whether the resource is available for a given time period after specific time
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="timeSpan"></param>
+        /// <returns></returns>
         public bool isAvailable(DateTime start, TimeSpan timeSpan)
         {
             bool isAvailable = false;
@@ -124,6 +141,11 @@ namespace gencbs.Resources
             return isAvailable;
         }
 
+        /// <summary>
+        /// intesect two availability lists to get common periods
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
         public LinkedList<TimeSlot> intersectAvailabilityList(LinkedList<TimeSlot> list)
         {
             if (list == null) return this.availability;
@@ -149,21 +171,35 @@ namespace gencbs.Resources
             return result;
         }
 			
-        public void insertTimeSlot(DateTime startTime, DateTime endTime)
+        /// <summary>
+        /// insert a time slot to the bookde list
+        /// </summary>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        public void bookTimeSlot(DateTime startTime, DateTime endTime)
         {
+            //assume that someone does not try to book a time slot that was booked before,
+            //if that occurs should throw an exception
             TimeSlot TimeSlotNode = new TimeSlot(startTime, endTime);
             LinkedListNode<TimeSlot> node = null;
 
-                node = BookedTime.First;                       
-
+            node = BookedTime.First;
+            if (node == null)
+            {
+                this.BookedTime.AddLast(TimeSlotNode);
+            }
             while (node != null)
             {
                 if (node.Value.StartTime > startTime)
                 {
+                    this.BookedTime.AddBefore(node, TimeSlotNode); //add it infront of the current node,
+                                                                   //for this it should be gurantee that two slots are not clashed
                     break;
                 }
                 node = node.Next;
             }
+
+
         }
 
 		public void PrepareForSerialization()
