@@ -8,8 +8,8 @@ namespace gencbs.Resources
 {
     class Labour : Resource
     {
-        public Labour(String name, ResourceType type, int efficiency)
-            : base(name, type, efficiency)
+        public Labour(String name, ResourceType type, int efficiency = 50, int costPerHour = 500)
+            : base(name, type, efficiency,costPerHour)
         {
 
         }

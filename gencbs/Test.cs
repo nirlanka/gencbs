@@ -42,6 +42,19 @@ namespace gencbs
 
             //other hospital staff.
             //todo: add other hospital staff here
+            //----------------------------------------------------------------
+            
+            //machines
+            //todo: add some machine types here
+            ResourceType mach_MRI_scanner = new ResourceType("mach_MRI_scanner", 1000);
+            ResourceType mach_XRay_scanner = new ResourceType("mach_XRay_scanner", 1000);
+            ResourceType mach_medical_ventilator = new ResourceType("mach_medical_ventilator", 1000);
+            ResourceType mach_anesthetic_machine = new ResourceType("mach_anesthetic_machine", 1000);
+            ResourceType mach_heart_lung_machine = new ResourceType("mach_heart_lung_machine", 1000);
+            ResourceType mach_ECLS = new ResourceType("mach_ECLS", 1000);//extracorporeal life support (ECLS)
+            ResourceType mach_dialysis = new ResourceType("mach_dialysis", 1000);
+            ResourceType mach_ultrasound_scanner = new ResourceType("mach_ultrasound_scanner", 1000);
+            
 
 
             //rosters
@@ -81,13 +94,29 @@ namespace gencbs
             roster_B.AddLast(new CalenderSlot(friday, friday.AddHours(16)));
             roster_B.AddLast(new CalenderSlot(saturday.AddHours(16), sunday));
 
-            //add some more rosters if needed
+            //roster for machines, full time machines
+            LinkedList<CalenderSlot> roster_Machine_fullTime = new LinkedList<CalenderSlot>();
+            roster_Machine_fullTime.AddLast(new CalenderSlot(sunday, saturday.AddHours(24))); 
 
+            //add some more rosters if needed
+            //-----> add at least 3 resources from each catogory
+
+
+            //--------------------------------------------now create some resources. few are created, Waruna
             //---RESOURCES--
             //DOCTORS
             //todo: add doctors here
+            //general surgens
+            Resource doc_001 = new Labour("doc_001", doc_general_surgeons, 80, 1000);
+            Resource doc_002 = new Labour("doc_002", doc_general_surgeons, 90, 1200);
+            Resource doc_003 = new Labour("doc_003", doc_general_surgeons, 70,800);
+            Resource doc_004 = new Labour("doc_004", doc_general_surgeons, 50, 600);
+            Resource doc_005 = new Labour("doc_005", doc_general_surgeons, 85 , 900);
 
-
+            //doc_anesthesiologist
+            Resource doc_006 = new Labour("doc_006", doc_anesthesiologist, 80, 1500);
+            Resource doc_007 = new Labour("doc_007", doc_anesthesiologist, 80, 1100);
+            Resource doc_008 = new Labour("doc_008", doc_anesthesiologist, 90, 1000);
 
             //NURSES
             //todo: add nurses here

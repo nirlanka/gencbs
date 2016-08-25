@@ -33,6 +33,7 @@ namespace gencbs.Resources
             this.id = nextId;   //add Id to the Resource object
 
             this.name = name;
+            ///here resource type maybe not necessory since we keep resources according to their type
             this.type = type;
             this.efficiency = efficiency;
             this.costPerHour = costPerHour;
