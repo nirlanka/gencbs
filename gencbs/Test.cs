@@ -54,6 +54,7 @@ namespace gencbs
             ResourceType mach_ECLS = new ResourceType("mach_ECLS", 1000);//extracorporeal life support (ECLS)
             ResourceType mach_dialysis = new ResourceType("mach_dialysis", 1000);
             ResourceType mach_ultrasound_scanner = new ResourceType("mach_ultrasound_scanner", 1000);
+            ResourceType anesthesia_machine = new ResourceType("anesthesia_machine", 1000);
             
 
 
@@ -87,12 +88,12 @@ namespace gencbs
             roster_B.AddLast(new CalenderSlot(saturday, saturday.AddHours(8)));
 
             LinkedList<CalenderSlot> roster_C = new LinkedList<CalenderSlot>();
-            roster_B.AddLast(new CalenderSlot(sunday.AddHours(16), monday)); //12-8
-            roster_B.AddLast(new CalenderSlot(tuesday, tuesday.AddHours(8)));//8-4
-            roster_B.AddLast(new CalenderSlot(wednesday.AddHours(16), thursday));//4-12
-            roster_B.AddLast(new CalenderSlot(thursday.AddHours(8), thursday.AddHours(16)));
-            roster_B.AddLast(new CalenderSlot(friday, friday.AddHours(16)));
-            roster_B.AddLast(new CalenderSlot(saturday.AddHours(16), sunday));
+            roster_C.AddLast(new CalenderSlot(sunday.AddHours(16), monday)); //12-8
+            roster_C.AddLast(new CalenderSlot(tuesday, tuesday.AddHours(8)));//8-4
+            roster_C.AddLast(new CalenderSlot(wednesday.AddHours(16), thursday));//4-12
+            roster_C.AddLast(new CalenderSlot(thursday.AddHours(8), thursday.AddHours(16)));
+            roster_C.AddLast(new CalenderSlot(friday, friday.AddHours(16)));
+            roster_C.AddLast(new CalenderSlot(saturday.AddHours(16), sunday));
 
             //roster for machines, full time machines
             LinkedList<CalenderSlot> roster_Machine_fullTime = new LinkedList<CalenderSlot>();
@@ -120,6 +121,35 @@ namespace gencbs
 
             //NURSES
             //todo: add nurses here
+            Resource nrsgen_001 = new Labour("nrsgen_001", nurse_general, 80, 300);
+            Resource nrsgen_002 = new Labour("nrsgen_002", nurse_general, 70, 300);
+            Resource nrsgen_003 = new Labour("nrsgen_003", nurse_general, 80, 300);
+            Resource nrsgen_004 = new Labour("nrsgen_004", nurse_general, 80, 300);
+            Resource nrsgen_005 = new Labour("nrsgen_005", nurse_general, 80, 300);
+
+            Resource nrsper_001 = new Labour("nrsper_001", nurse_perioperative, 80, 350);
+            Resource nrsper_002 = new Labour("nrsper_002", nurse_perioperative, 75, 350);
+            Resource nrsper_003 = new Labour("nrsper_003", nurse_perioperative, 90, 350);
+            Resource nrsper_004 = new Labour("nrsper_004", nurse_perioperative, 90, 350);
+            Resource nrsper_005 = new Labour("nrsper_005", nurse_perioperative, 86, 350);
+
+            Resource nrsmid_001 = new Labour("nrsmid_001", nurse_midwife, 74, 250);
+            Resource nrsmid_002 = new Labour("nrsmid_002", nurse_midwife, 74, 300);
+            Resource nrsmid_003 = new Labour("nrsmid_003", nurse_midwife, 74, 250);
+            Resource nrsmid_004 = new Labour("nrsmid_004", nurse_midwife, 74, 250);
+            Resource nrsmid_005 = new Labour("nrsmid_005", nurse_midwife, 74, 300);
+
+            Resource nrsane_001 = new Labour("nrsane_001", nurse_anesthetists, 83, 350);
+            Resource nrsane_002 = new Labour("nrsane_002", nurse_anesthetists, 90, 300);
+            Resource nrsane_003 = new Labour("nrsane_003", nurse_anesthetists, 88, 300);
+            Resource nrsane_004 = new Labour("nrsane_004", nurse_anesthetists, 75, 300);
+            Resource nrsane_005 = new Labour("nrsane_005", nurse_anesthetists, 92, 300);
+
+            Resource nrsonc_001 = new Labour("nrconc_001", nurse_oncology, 79, 300);
+            Resource nrsonc_002 = new Labour("nrconc_002", nurse_oncology, 89, 300);
+            Resource nrsonc_003 = new Labour("nrconc_003", nurse_oncology, 85, 300);
+            Resource nrsonc_004 = new Labour("nrconc_004", nurse_oncology, 75, 300);
+            Resource nrsonc_005 = new Labour("nrconc_005", nurse_oncology, 78, 300);
 
 
 
@@ -157,6 +187,14 @@ namespace gencbs
 			Data.addResourceType (docTypeB);
 			Data.addResource (r1);
 			Data.addResource (r2);
+            Data.addResource(doc_001);
+            Data.addResource(doc_002);
+            Data.addResource(doc_003);
+            Data.addResource(doc_004);
+            Data.addResource(doc_005);
+            Data.addResource(doc_006);
+            Data.addResource(doc_007);
+            Data.addResource(doc_008);
 
 			// save as files
 			Data.Sync ();
