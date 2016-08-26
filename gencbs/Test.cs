@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using gencbs.Resources;
+using gencbs.Scheduler;
 
 namespace gencbs
 {
@@ -11,8 +12,10 @@ namespace gencbs
 		{
 		}
 
-		public static void createSimpleTestData () 
-		{
+        public static LinkedList<ResourcePoolNode> createTestResourcePool()
+        {
+            LinkedList<ResourcePoolNode> resourcePool = new LinkedList<ResourcePoolNode>();
+
             //testing data
             //resource types
             //doctors
@@ -27,6 +30,19 @@ namespace gencbs
             ResourceType doc_surgical_oncologist = new ResourceType("doc_surgical_oncologist", 0); //Deals with administering surgical procedures to treat cancer. Uses biopsy to diagnose cancer. Removes tumors and cancerous tissues
             ResourceType doc_neurosurgeon = new ResourceType("doc_neurosurgeon", 0); //Specializes in the treatment of diseases affecting the nervous system and the brain
 
+            //create resourecePoolNode for each resource type
+            ResourcePoolNode node_doc_genral_physician = new ResourcePoolNode(doc_genral_physician);
+            ResourcePoolNode node_doc_anesthesiologist = new ResourcePoolNode(doc_anesthesiologist);
+            ResourcePoolNode node_doc_general_surgeons = new ResourcePoolNode(doc_general_surgeons);
+            ResourcePoolNode node_doc_pediatric_cardiologist = new ResourcePoolNode(doc_pediatric_cardiologist);
+            ResourcePoolNode node_doc_urologist = new ResourcePoolNode(doc_urologist);
+            ResourcePoolNode node_doc_andrologist = new ResourcePoolNode(doc_andrologist);
+            ResourcePoolNode node_doc_gynecologist = new ResourcePoolNode(doc_gynecologist);
+            ResourcePoolNode node_doc_radiation_oncologist = new ResourcePoolNode(doc_radiation_oncologist);
+            ResourcePoolNode node_doc_surgical_oncologist = new ResourcePoolNode(doc_surgical_oncologist);
+            ResourcePoolNode node_doc_neurosurgeon = new ResourcePoolNode(doc_neurosurgeon);
+            
+
 
             //nurses
             ResourceType nurse_general = new ResourceType("nurse_general", 0);
@@ -35,15 +51,27 @@ namespace gencbs
             ResourceType nurse_midwife = new ResourceType("nurse_midwife", 0); //specialized in childbirth
             ResourceType nurse_oncology = new ResourceType("nurse_oncology", 0); //specialized in cancer treatments
 
+            ResourcePoolNode node_nurse_general = new ResourcePoolNode(nurse_general);
+            ResourcePoolNode node_nurse_perioperative = new ResourcePoolNode(nurse_perioperative);
+            ResourcePoolNode node_nurse_anesthetists = new ResourcePoolNode(nurse_anesthetists);
+            ResourcePoolNode node_nurse_midwife = new ResourcePoolNode(nurse_midwife);
+            ResourcePoolNode node_nurse_oncology = new ResourcePoolNode(nurse_oncology);
+            
+
             //allied health proffesionals
             ResourceType ahs_surgical_technologist = new ResourceType("ahs_surgical_technologist", 0); //part of a surgical team
             ResourceType ahs_radiotherapist = new ResourceType("ahs_radiotherapist", 0); //works in radiation therapy
             ResourceType ahs_radiation_scientist = new ResourceType("ahs_radiation_scientist", 0);
 
+            ResourcePoolNode node_ahs_surgical_technologist = new ResourcePoolNode(ahs_surgical_technologist);
+            ResourcePoolNode node_ahs_radiotherapist = new ResourcePoolNode(ahs_radiotherapist);
+            ResourcePoolNode node_ahs_radiation_scientist = new ResourcePoolNode(ahs_radiation_scientist);
+            
+
             //other hospital staff.
             //todo: add other hospital staff here
             //----------------------------------------------------------------
-            
+
             //machines
             //todo: add some machine types here
             ResourceType mach_MRI_scanner = new ResourceType("mach_MRI_scanner", 1000);
@@ -54,7 +82,19 @@ namespace gencbs
             ResourceType mach_ECLS = new ResourceType("mach_ECLS", 1000);//extracorporeal life support (ECLS)
             ResourceType mach_dialysis = new ResourceType("mach_dialysis", 1000);
             ResourceType mach_ultrasound_scanner = new ResourceType("mach_ultrasound_scanner", 1000);
-            
+
+            ResourcePoolNode node_mach_MRI_scanner = new ResourcePoolNode(mach_MRI_scanner);
+            ResourcePoolNode node_mach_XRay_scanner = new ResourcePoolNode(mach_XRay_scanner);
+            ResourcePoolNode node_mach_medical_ventilator = new ResourcePoolNode(mach_medical_ventilator);
+            ResourcePoolNode node_mach_anesthetic_machine = new ResourcePoolNode(mach_anesthetic_machine);
+            ResourcePoolNode node_mach_heart_lung_machine = new ResourcePoolNode(mach_heart_lung_machine);
+            ResourcePoolNode node_mach_ECLS = new ResourcePoolNode(mach_ECLS);
+            ResourcePoolNode node_mach_dialysis = new ResourcePoolNode(mach_dialysis);
+            ResourcePoolNode node_mach_ultrasound_scanner = new ResourcePoolNode(mach_ultrasound_scanner);
+            //ResourcePoolNode node_ = new ResourcePoolNode();
+            //ResourcePoolNode node_ = new ResourcePoolNode();
+            //ResourcePoolNode node_ = new ResourcePoolNode();
+
 
 
             //rosters
@@ -96,7 +136,7 @@ namespace gencbs
 
             //roster for machines, full time machines
             LinkedList<CalenderSlot> roster_Machine_fullTime = new LinkedList<CalenderSlot>();
-            roster_Machine_fullTime.AddLast(new CalenderSlot(sunday, saturday.AddHours(24))); 
+            roster_Machine_fullTime.AddLast(new CalenderSlot(sunday, saturday.AddHours(24)));
 
             //add some more rosters if needed
             //-----> add at least 3 resources from each catogory
@@ -107,23 +147,28 @@ namespace gencbs
             //DOCTORS
             //todo: add doctors here
             //general surgens
-            Resource doc_001 = new Labour("doc_001", doc_general_surgeons, 80, 1000);
-            Resource doc_002 = new Labour("doc_002", doc_general_surgeons, 90, 1200);
-            Resource doc_003 = new Labour("doc_003", doc_general_surgeons, 70,800);
-            Resource doc_004 = new Labour("doc_004", doc_general_surgeons, 50, 600);
-            Resource doc_005 = new Labour("doc_005", doc_general_surgeons, 85 , 900);
+            Resource doc_001 = new Labour("doc_001", doc_general_surgeons, 80, 1000, roster_A);
+            Resource doc_002 = new Labour("doc_002", doc_general_surgeons, 90, 1200, roster_B);
+            Resource doc_003 = new Labour("doc_003", doc_general_surgeons, 70, 800, roster_B);
+            Resource doc_004 = new Labour("doc_004", doc_general_surgeons, 50, 600, roster_C);
+            Resource doc_005 = new Labour("doc_005", doc_general_surgeons, 85, 900, roster_A);
 
             //doc_anesthesiologist
-            Resource doc_006 = new Labour("doc_006", doc_anesthesiologist, 80, 1500);
-            Resource doc_007 = new Labour("doc_007", doc_anesthesiologist, 80, 1100);
-            Resource doc_008 = new Labour("doc_008", doc_anesthesiologist, 90, 1000);
+            Resource doc_006 = new Labour("doc_006", doc_anesthesiologist, 80, 1500, roster_A);
+            Resource doc_007 = new Labour("doc_007", doc_anesthesiologist, 80, 1100, roster_B);
+            Resource doc_008 = new Labour("doc_008", doc_anesthesiologist, 90, 1000, roster_C);
 
             //NURSES
             //todo: add nurses here
 
 
 
-			//creating dates
+            return resourcePool;
+        }
+
+		public static void createSimpleTestData () 
+		{
+            //creating dates
 			DateTime date1 = new DateTime(2016, 5, 3 , 16,0,0);
 			DateTime date2 = new DateTime(2016, 5, 5, 8,0,0);
 

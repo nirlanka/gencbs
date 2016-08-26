@@ -27,7 +27,7 @@ namespace gencbs.Resources
 		public string _bookedTime = null;
 
 
-        public Resource (String name, ResourceType type, int efficiency = 50, int costPerHour = 500)
+        public Resource (String name, ResourceType type, int efficiency = 50, int costPerHour = 500, LinkedList<CalenderSlot> roster = null)
         {
             Interlocked.Increment(ref nextId);  //Increment the nextId variable in a thread safe manner
             this.id = nextId;   //add Id to the Resource object
@@ -37,11 +37,13 @@ namespace gencbs.Resources
             this.type = type;
             this.efficiency = efficiency;
             this.costPerHour = costPerHour;
-       
-//            BookedTime = new LinkedList<TimeSlot>();
+
+            this.roster = roster;
             this.BookedTime = new LinkedList<TimeSlot>();
             //this.updateAvailabilityList();
         }
+
+
 			
         public Resource()
         {
