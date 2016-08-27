@@ -30,5 +30,10 @@ namespace gencbs.Scheduler
 
             return resourceList.ElementAt(ran);
         }
+
+        public void addResource(Resource res)
+        {
+            resourceList.AddLast(res);
+        }
     }
 }

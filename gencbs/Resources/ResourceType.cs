@@ -12,6 +12,7 @@ namespace gencbs.Resources
         public int setupCost { get;  set; }
 		public LinkedList<Resource> resources { get;  set; }
 		public LinkedList<string> _resources { get;  set; }
+        private Random random = new Random();
 
         public ResourceType(String name, int setupcost = 0)
         {
@@ -19,6 +20,19 @@ namespace gencbs.Resources
             this.setupCost = setupcost;
 			this.resources = new LinkedList<Resource> ();
 			this._resources = new LinkedList<string> ();
+        }
+
+        public Resource getRandomResource()
+        {
+            if (resources.Count == 0) return null;
+            int ran = random.Next(resources.Count);
+
+            return resources.ElementAt(ran);
+        }
+
+        public void addResource(Resource res)
+        {
+            resources.AddLast(res);
         }
 
         public override bool Equals(object obj)

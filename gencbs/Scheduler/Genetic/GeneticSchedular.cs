@@ -17,7 +17,8 @@ namespace gencbs.Scheduler.Genetic
         private Random randomNumber = new Random();
 
 
-        public LinkedList<ResourcePoolNode> resourcePool = PreSchedule.createResourcePool();
+        //public LinkedList<ResourceType> resourcePool = PreSchedule.createResourcePool();
+        public LinkedList<ResourceType> resourcePool = Test.createTestResourcePool();
 
         /// <summary>
         /// create the initial population by randomly assigning resources to jobs
@@ -39,7 +40,7 @@ namespace gencbs.Scheduler.Genetic
         /// <returns></returns>
         public Resource getRandomResource(ResourceType type)
         {
-            foreach (ResourcePoolNode node in resourcePool)
+            foreach (ResourceType node in resourcePool)
             {
                 if (node.type == type)
                 {
@@ -124,7 +125,7 @@ namespace gencbs.Scheduler.Genetic
             Resource newSwapResource =  getRandomResource(mutationResourceType);
             job.requiredResources.ElementAt(mutationResourceNo).allocated_resource = newSwapResource;
             return job;
-        }
+        } 
 
 
         /// <summary>

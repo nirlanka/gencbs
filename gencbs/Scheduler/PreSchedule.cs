@@ -21,7 +21,7 @@ namespace gencbs.Scheduler
         /// get all the resource types stored as json files
         /// </summary>
         /// <returns></returns>
-        public static LinkedList<ResourceType> getResourcTypes()
+        public static LinkedList<ResourceType> getResourceTypes()
         {
             LinkedList<ResourceType> typeList = new LinkedList<ResourceType>();
             String typeDirectory = dataDirectory + @"\ResourceTypes";
@@ -63,27 +63,21 @@ namespace gencbs.Scheduler
         /// creating the resource pool with all the availble resources catagorized according to the types.
         /// </summary>
         /// <returns></returns>
-        public static LinkedList<ResourcePoolNode> createResourcePool()
+        public static LinkedList<ResourceType> createResourcePool()
         {
-            LinkedList<ResourcePoolNode> resourcePool = new LinkedList<ResourcePoolNode>();
-            LinkedList<ResourceType> typeList = getResourcTypes();
+            LinkedList<ResourceType> resourcePool = getResourceTypes();
 
-            //ResourcePoolNode node; 
-            foreach (ResourceType type in typeList)
-            {
-                //node = new ResourcePoolNode(type);
-                resourcePool.AddLast(new ResourcePoolNode(type));
-            }
+            
 
             LinkedList<Resource> resourceList = getResourcesList();
 
             foreach (Resource resource in getResourcesList())
             {
-                foreach (ResourcePoolNode node in resourcePool)
+                foreach (ResourceType node in resourcePool)
                 {
-                    if (node.type.typeName == resource.type.typeName)
+                    if (node.typeName == resource.type.typeName)
                     {
-                        node.resourceList.AddLast(resource);
+                        node.resources.AddLast(resource);
                         break;
                     }
                 }
