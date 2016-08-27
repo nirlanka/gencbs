@@ -133,13 +133,14 @@ namespace gencbs
             //--todo: add set of different rosteres here
             //general week days
             //These rosters are week base
+            DateTime sunday = new DateTime(2016, 5, 22, 0, 0, 0);
             DateTime monday = new DateTime(2016, 5, 23, 0, 0, 0); //monday 12.00AM
             DateTime tuesday = new DateTime(2016, 5, 24, 0, 0, 0);
             DateTime wednesday = new DateTime(2016, 5, 25, 0, 0, 0);
             DateTime thursday = new DateTime(2016, 5, 26, 0, 0, 0);
             DateTime friday = new DateTime(2016, 5, 27, 0, 0, 0);
             DateTime saturday = new DateTime(2016, 5, 28, 0, 0, 0);
-            DateTime sunday = new DateTime(2016, 5, 29, 0, 0, 0);
+            
 
 
             LinkedList<CalenderSlot> roster_A = new LinkedList<CalenderSlot>();
@@ -148,7 +149,7 @@ namespace gencbs
             roster_A.AddLast(new CalenderSlot(tuesday.AddHours(16), wednesday));//4-12
             roster_A.AddLast(new CalenderSlot(thursday, thursday.AddHours(8)));
             roster_A.AddLast(new CalenderSlot(friday.AddHours(16), saturday));
-            roster_A.AddLast(new CalenderSlot(saturday.AddHours(8), saturday.AddHours(4)));
+            roster_A.AddLast(new CalenderSlot(saturday.AddHours(8), saturday.AddHours(16)));
 
             LinkedList<CalenderSlot> roster_B = new LinkedList<CalenderSlot>();
             roster_B.AddLast(new CalenderSlot(sunday.AddHours(8), sunday.AddHours(16))); //12-8
@@ -164,7 +165,7 @@ namespace gencbs
             roster_C.AddLast(new CalenderSlot(wednesday.AddHours(16), thursday));//4-12
             roster_C.AddLast(new CalenderSlot(thursday.AddHours(8), thursday.AddHours(16)));
             roster_C.AddLast(new CalenderSlot(friday, friday.AddHours(16)));
-            roster_C.AddLast(new CalenderSlot(saturday.AddHours(16), sunday));
+            roster_C.AddLast(new CalenderSlot(saturday.AddHours(16), saturday.AddHours(24)));
 
             //roster for machines, full time machines
             LinkedList<CalenderSlot> roster_Machine_fullTime = new LinkedList<CalenderSlot>();
@@ -297,14 +298,14 @@ namespace gencbs
 			Data.addResourceType (docTypeB);
 			Data.addResource (r1);
 			Data.addResource (r2);
-            Data.addResource(doc_001);
-            Data.addResource(doc_002);
-            Data.addResource(doc_003);
-            Data.addResource(doc_004);
-            Data.addResource(doc_005);
-            Data.addResource(doc_006);
-            Data.addResource(doc_007);
-            Data.addResource(doc_008);
+            //Data.addResource(doc_001);
+            //Data.addResource(doc_002);
+            //Data.addResource(doc_003);
+            //Data.addResource(doc_004);
+            //Data.addResource(doc_005);
+            //Data.addResource(doc_006);
+            //Data.addResource(doc_007);
+            //Data.addResource(doc_008);
 
 			// save as files
 			Data.Sync ();

@@ -10,7 +10,7 @@ namespace gencbs.Scheduler.DeterministicScheduler
 {
     class Schedular
     {
-        public static LinkedList<ResourcePoolNode> resourcePool = PreSchedule.createResourcePool();
+        public static LinkedList<ResourceType> resourcePool = PreSchedule.createResourcePool();
 
         //********this is wrong
         /// <summary>
@@ -18,26 +18,26 @@ namespace gencbs.Scheduler.DeterministicScheduler
         /// </summary>
         /// <param name="job"></param>
         /// <returns></returns>
-        public static LinkedList<ResourcePoolNode> resourcePoolForJob(Job job)
+        public static LinkedList<ResourceType> resourcePoolForJob(Job job)
         {
-            LinkedList<ResourcePoolNode> resourcePoolForJob = new LinkedList<ResourcePoolNode>();
+            LinkedList<ResourceType> resourcePoolForJob = new LinkedList<ResourceType>();
 
             foreach (ResourceForJob node in job.requiredResources)
             {
-                resourcePoolForJob.AddLast(new ResourcePoolNode(node.resourceType));
+                resourcePoolForJob.AddLast(node.resourceType);
             }
 
-            foreach(ResourcePoolNode node in resourcePoolForJob )
+            foreach (ResourceType node in resourcePoolForJob)
             {
-                foreach (ResourcePoolNode node2 in resourcePool)
+                foreach (ResourceType node2 in resourcePool)
                 {
-                    if (node.type.typeName == node2.type.typeName)
+                    if (node.typeName == node2.typeName)
                     {
-                        foreach(Resource resource in node2.resourceList )
+                        foreach(Resource resource in node2.resources )
                         {
                             if(resource.isAvailable(job.EPST, job.duration))
                             {
-                                node.resourceList.AddLast(resource);
+                                node.resources.AddLast(resource);
                             }
                         }
                         break;
@@ -52,7 +52,7 @@ namespace gencbs.Scheduler.DeterministicScheduler
 
         public static Job scheduleJob(Job job)
         {
-            LinkedList<ResourcePoolNode> pool = resourcePoolForJob(job);
+            LinkedList<ResourceType> pool = resourcePoolForJob(job);
             
             foreach (ResourceForJob node in job.requiredResources)
             {

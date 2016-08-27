@@ -14,7 +14,11 @@ namespace gencbs.Resources
 
         public TimeSlot(DateTime start, DateTime end)
         {
-            if (start > end) throw new ArgumentException("Wrong parametes");
+            if (start > end)
+            {
+                Console.WriteLine(start + " - " + end);
+                throw new ArgumentException("Wrong parametes");
+            }
             this.startTime = start;
             this.endTime = end;
             this.timeSpan = end - start;

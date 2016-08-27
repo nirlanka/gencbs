@@ -31,6 +31,11 @@ namespace gencbs.Jobs
             this.jobID = nextId;
         }
 
+        public void addRequiredResource(ResourceType type)
+        {
+            requiredResources.AddLast(new ResourceForJob(type));
+        }
+
         public Job(Job job)
         {
             EPST = job.EPST;

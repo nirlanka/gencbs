@@ -11,5 +11,9 @@ namespace gencbs.Jobs
         //have to consider the situation of requiring more than one resource from one type
         public ResourceType resourceType;
         public Resource allocated_resource; //add a resource after scheduling
+        public ResourceForJob(ResourceType type)
+        {
+            this.resourceType = type;
+        }
     }
 }
