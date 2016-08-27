@@ -24,10 +24,15 @@ namespace gencbs.Resources
 
         public Resource getRandomResource()
         {
-            if (resources.Count == 0) return null;
+            if (resources.Count == 0)
+            {
+                Console.WriteLine("no resources of this type");
+                return null;
+            }
             int ran = random.Next(resources.Count);
-
-            return resources.ElementAt(ran);
+            Resource reso = resources.ElementAt(ran);
+            Console.WriteLine("assigning resource- "+ reso.name);
+            return reso;
         }
 
         public void addResource(Resource res)

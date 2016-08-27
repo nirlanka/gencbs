@@ -30,8 +30,10 @@ namespace gencbs.Scheduler.Genetic
         /// <param name="job"></param>
         public void createInitialGeneration(Job job)
         {
+            Console.WriteLine("creating initial generation");
             for (int i = 0; i < populationSize; i++)
             {
+                Console.WriteLine("creating initial generation, individual number "+i);
                 population[i] = new Job(job);
                 assignRandomResources(population[i]);
             }
@@ -51,6 +53,7 @@ namespace gencbs.Scheduler.Genetic
                     return node.getRandomResource();
                 }
             }
+            Console.WriteLine("type could not found in the resource pool");
             return null;
         }
 
@@ -61,8 +64,10 @@ namespace gencbs.Scheduler.Genetic
         /// <returns></returns>
         public Job assignRandomResources(Job job)
         {
+            Console.WriteLine("assigning random resource------------------------------------");
             foreach(ResourceForJob res in job.requiredResources) 
             {
+                Console.WriteLine("assign to type - " + res.resourceType.typeName);
                 res.allocated_resource = getRandomResource(res.resourceType.typeName);
             }
 

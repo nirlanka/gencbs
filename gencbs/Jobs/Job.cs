@@ -29,11 +29,13 @@ namespace gencbs.Jobs
         {
             Interlocked.Increment(ref nextId);
             this.jobID = nextId;
+            this.requiredResources = new LinkedList<ResourceForJob>();
         }
 
         public void addRequiredResource(ResourceType type)
         {
-            requiredResources.AddLast(new ResourceForJob(type));
+            ResourceForJob reqResource = new ResourceForJob(type);
+            this.requiredResources.AddLast(reqResource);
         }
 
         public Job(Job job)

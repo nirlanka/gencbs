@@ -40,19 +40,6 @@ namespace gencbs
             resourcePool.AddLast(doc_surgical_oncologist);
             resourcePool.AddLast(doc_neurosurgeon);
 
-            //create resourecePoolNode for each resource type
-            //ResourceType node_doc_genral_physician = new ResourceType(doc_genral_physician);
-            //ResourceType node_doc_anesthesiologist = new ResourceType(doc_anesthesiologist);
-            //ResourceType node_doc_general_surgeons = new ResourcePoolNode(doc_general_surgeons);
-            //ResourcePoolNode node_doc_pediatric_cardiologist = new ResourcePoolNode(doc_pediatric_cardiologist);
-            //ResourcePoolNode node_doc_urologist = new ResourcePoolNode(doc_urologist);
-            //ResourcePoolNode node_doc_andrologist = new ResourcePoolNode(doc_andrologist);
-            //ResourcePoolNode node_doc_gynecologist = new ResourcePoolNode(doc_gynecologist);
-            //ResourcePoolNode node_doc_radiation_oncologist = new ResourcePoolNode(doc_radiation_oncologist);
-            //ResourcePoolNode node_doc_surgical_oncologist = new ResourcePoolNode(doc_surgical_oncologist);
-            //ResourcePoolNode node_doc_neurosurgeon = new ResourcePoolNode(doc_neurosurgeon);
-            
-
 
             //nurses
             ResourceType nurse_general = new ResourceType("nurse_general", 0);
@@ -67,13 +54,6 @@ namespace gencbs
             resourcePool.AddLast(nurse_oncology);
            
 
-            //ResourcePoolNode node_nurse_general = new ResourcePoolNode(nurse_general);
-            //ResourcePoolNode node_nurse_perioperative = new ResourcePoolNode(nurse_perioperative);
-            //ResourcePoolNode node_nurse_anesthetists = new ResourcePoolNode(nurse_anesthetists);
-            //ResourcePoolNode node_nurse_midwife = new ResourcePoolNode(nurse_midwife);
-            //ResourcePoolNode node_nurse_oncology = new ResourcePoolNode(nurse_oncology);
-            
-
             //allied health proffesionals
             ResourceType ahs_surgical_technologist = new ResourceType("ahs_surgical_technologist", 0); //part of a surgical team
             ResourceType ahs_radiotherapist = new ResourceType("ahs_radiotherapist", 0); //works in radiation therapy
@@ -82,10 +62,6 @@ namespace gencbs
             resourcePool.AddLast(ahs_radiotherapist);
             resourcePool.AddLast(ahs_radiation_scientist);
 
-            //ResourcePoolNode node_ahs_surgical_technologist = new ResourcePoolNode(ahs_surgical_technologist);
-            //ResourcePoolNode node_ahs_radiotherapist = new ResourcePoolNode(ahs_radiotherapist);
-            //ResourcePoolNode node_ahs_radiation_scientist = new ResourcePoolNode(ahs_radiation_scientist);
-            
 
             //other hospital staff.
             //todo: add other hospital staff here

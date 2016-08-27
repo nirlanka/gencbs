@@ -20,8 +20,10 @@ namespace gencbs
             //Data.Init ();
             //Data.Restore ();
             gencbs.Jobs.Job job1 = new Jobs.Job();
-            job1.addRequiredResource(new ResourceType("doc_general_physician", 0));
+            Console.WriteLine("going to add required resources");
+            job1.addRequiredResource(new ResourceType("doc_general_surgeons", 0));
             job1.addRequiredResource(new ResourceType("doc_anesthesiologist", 0));
+            Console.WriteLine("added required resources");
             job1.EPST = DateTime.Now.AddDays(10);
             job1.dueDate = DateTime.Now.AddDays(20);
             job1.duration = new TimeSpan(5,0,0);
