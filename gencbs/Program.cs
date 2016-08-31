@@ -23,6 +23,9 @@ namespace gencbs
             Console.WriteLine("going to add required resources");
             job1.addRequiredResource(new ResourceType("doc_general_surgeons", 0));
             job1.addRequiredResource(new ResourceType("doc_anesthesiologist", 0));
+            job1.addRequiredResource(new ResourceType("nurse_general", 0));
+            job1.addRequiredResource(new ResourceType("nurse_anesthetists", 0));
+            job1.addRequiredResource(new ResourceType("nurse_oncology", 0));
             Console.WriteLine("added required resources");
             job1.EPST = DateTime.Now.AddDays(10);
             job1.dueDate = DateTime.Now.AddDays(20);

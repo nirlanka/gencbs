@@ -31,7 +31,7 @@ namespace gencbs.Resources
             }
             int ran = random.Next(resources.Count);
             Resource reso = resources.ElementAt(ran);
-            Console.WriteLine("assigning resource- "+ reso.name);
+            //Console.WriteLine("assigning resource- "+ reso.name);
             return reso;
         }
 

@@ -94,6 +94,7 @@ namespace gencbs.Jobs
             while (node.Next != null)
             {
                 result = node.Value.allocated_resource.intersectAvailabilityList(result);
+                node = node.Next;
             }
             return result;
             
@@ -105,21 +106,25 @@ namespace gencbs.Jobs
         /// <returns></returns>
         private int calculateDelayPanalty()
         {
+            //Console.WriteLine("Calculating delay penelty -> getting the intersection");
             LinkedList<TimeSlot> intersectionOfTimes = this.getIntersection();
 
             //get the least posible starting time of the job
+            //Console.WriteLine("--------------------------------------------------------------------");
+            //Console.WriteLine("Calculating delay penelty");
             foreach (TimeSlot slot in intersectionOfTimes)
             {
                 if (slot.TimeSpan >= this.duration)
                 {
-                    if (slot.startTime > this.EPST)
+                    if (slot.startTime > this.dueDate)
                     {
-                        TimeSpan delay = slot.startTime - this.EPST;
+                        TimeSpan delay = slot.startTime - this.dueDate;
                         return delay.Hours * this.delayPanaltyForHour;
                     }
                     else return 0;
                 }
             }
+           // Console.WriteLine("--------------------------------------------------------------------");
 
             return 0;
         }
@@ -130,15 +135,19 @@ namespace gencbs.Jobs
         /// <returns></returns>
         public int getCost()
         {
+            //Console.WriteLine("getting cost");
             int cost = 0;
+            //Console.WriteLine("--------------------------------------------------------------------");
+            
             foreach (ResourceForJob res in this.requiredResources)
             {
                 cost += res.allocated_resource.getCost(this.duration);
             }
-
+            //Console.WriteLine("--------------------------------------------------------------------");
             cost += calculateDelayPanalty();
             if (cost == 0) return 1; //to avoid devision by zero
             this.cost = cost;
+            //Console.WriteLine("cost of the job : " + cost);
             return cost;
         }
 

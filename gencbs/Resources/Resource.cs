@@ -116,11 +116,13 @@ namespace gencbs.Resources
 
         public int getCost(TimeSpan duration)
         {
+            //Console.WriteLine("getting cost of : " + this.name); //debug
+
             int setUpCost = type.setupCost;
             int timeCost = this.costPerHour * duration.Hours * (100 / this.efficiency);
             int totalCost = setUpCost + timeCost;
 
-
+            //Console.WriteLine("finished getting cost of : " + this.name + " cost is " + totalCost); //debug
             return totalCost;        
         }
 

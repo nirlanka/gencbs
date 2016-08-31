@@ -33,11 +33,11 @@ namespace gencbs.Scheduler.Genetic
             Console.WriteLine("creating initial generation");
             for (int i = 0; i < populationSize; i++)
             {
-                Console.WriteLine("creating initial generation, individual number "+i);
+                //Console.WriteLine("creating initial generation, individual number "+i);
                 //population[i] = new Job(job);
                 this.population[i] = assignRandomResources(job);
                 this.population[i].cost = this.population[i].getCost();
-                //Console.WriteLine(population[i]);
+               // Console.WriteLine("-----------------------------------------------)))))))))))");
             }
         }
 
@@ -67,13 +67,13 @@ namespace gencbs.Scheduler.Genetic
         public Job assignRandomResources(Job j)
         {
             Job job = new Job(j);
-            Console.WriteLine("assigning random resource------------------------------------" + j);
+            //Console.WriteLine("assigning random resource------------------------------------" + j);
             foreach(ResourceForJob res in job.requiredResources) 
             {
-                Console.WriteLine("assign to type - " + res.resourceType.typeName);
+                //Console.WriteLine("assign to type - " + res.resourceType.typeName);
                 res.allocated_resource = getRandomResource(res.resourceType.typeName);
             }
-            Console.WriteLine(job);
+            //Console.WriteLine(job);
             return job;
         }
 
@@ -81,11 +81,15 @@ namespace gencbs.Scheduler.Genetic
         {
             int[] selection; 
             Job[] newJobs = new Job[2];
-            Console.WriteLine("start crossovering the population----");
-            for (int i = 0; i < crossoverLimit / 2; i++)
+            //Console.WriteLine("start crossovering the population----");
+            for (int i = 0; i < 2; i++)
+            {
+                this.nextGeneration[i] = new Job(this.population[i]);
+            }
+            for (int i = 1; i < crossoverLimit / 2; i++)
             {
                 selection = selectParentIndex();
-                Console.WriteLine("crossover parents: p1 = "+ selection[0] + " and p2 = "+ selection[1]);
+                //Console.WriteLine("crossover parents: p1 = "+ selection[0] + " and p2 = "+ selection[1]);
                 newJobs = crossover(population[selection[0]], population[selection[1]]);
                 this.nextGeneration[2*i] = new Job(newJobs[0]);
                 this.nextGeneration[2 * i + 1] = new Job(newJobs[1]);
@@ -142,7 +146,7 @@ namespace gencbs.Scheduler.Genetic
             ResourceType mutationResourceType = job.requiredResources.ElementAt(mutationResourceNo).resourceType;
 
 
-            Console.WriteLine("mutating the " + mutationResourceType.typeName);
+            //Console.WriteLine("mutating the " + mutationResourceType.typeName);
 
             Resource newSwapResource =  getRandomResource(mutationResourceType.typeName);
             job.requiredResources.ElementAt(mutationResourceNo).allocated_resource = newSwapResource;
@@ -206,9 +210,10 @@ namespace gencbs.Scheduler.Genetic
 
         public void assignNewPopulation()
         {
-            Console.WriteLine("replacing the older population by next generation.");
+            //Console.WriteLine("replacing the older population by next generation.");
             for (int i = 0; i < populationSize; i++)
             {
+                //Console.Write(i + ", ");
                 this.population[i] = new Job(this.nextGeneration[i]);
             }
         }
@@ -220,12 +225,15 @@ namespace gencbs.Scheduler.Genetic
             for (int i = 0; i < 10; i++)
             {
 
-                Console.WriteLine("population " + i + "==========================");
-                for (int j = 0; j < populationSize; j++ )
-                {
-                    Console.WriteLine(population[j]);
-                }
+                //Console.WriteLine("population " + i + "==========================");
+                //for (int j = 0; j < populationSize; j++ )
+                //{
+                //    Console.WriteLine(population[j]);
+                //}
                 sortPopulationByFitness();
+                //------------------------------------
+                if (population[0].cost <= job.expectedCost) break; //break since we got a good enough solution, or expected solution
+
                 Console.WriteLine("population " + i + " -> after sorting =================================");
                 for (int j = 0; j < populationSize; j++)
                 {
