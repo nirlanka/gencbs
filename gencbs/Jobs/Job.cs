@@ -17,6 +17,8 @@ namespace gencbs.Jobs
         public int delayPanaltyForHour { get; set; }
         public int jobID{ get; set;}
 
+        public int expectedCost { get; set; }
+
         public Double fitness { get; set; }
 
         public String jobName { get; set; }
@@ -40,13 +42,21 @@ namespace gencbs.Jobs
 
         public Job(Job job)
         {
-            EPST = job.EPST;
-            dueDate = job.dueDate;
-            duration = job.duration;
-            jobID = job.jobID;
-            jobName = job.jobName;
-            delayPanaltyForHour = job.delayPanaltyForHour;
-            requiredResources = job.requiredResources;
+            this.EPST = job.EPST;
+            this.dueDate = job.dueDate;
+            this.duration = job.duration;
+            this.jobID = job.jobID;
+            this.jobName = job.jobName;
+            this.delayPanaltyForHour = job.delayPanaltyForHour;
+            this.requiredResources = new LinkedList<ResourceForJob>();
+            this.expectedCost = job.expectedCost;
+
+            //to avoid referencing to the same list
+            //we have to create a new list every time
+            foreach (ResourceForJob res in job.requiredResources)
+            {
+                addRequiredResource(new ResourceType(res.resourceType.typeName, res.resourceType.setupCost));
+            }
         }
 
         //create a resource pool for the job
@@ -119,7 +129,25 @@ namespace gencbs.Jobs
 
         public int CompareTo(Job job)
         {
-            return this.fitness.CompareTo(job.fitness);
+            return this.cost.CompareTo(job.cost);
+        }
+
+        public override String ToString()
+        {
+            String id = "job ID = " + this.jobID + ", ";
+            String cost = "Cost = " + this.cost + ", ";
+            String res = "";
+            String rName = "";
+            foreach (ResourceForJob r in requiredResources)
+            {
+                if (r.allocated_resource != null)
+                {
+                    rName = r.allocated_resource.name + "";
+                }
+                else rName = "null";
+                res = res + rName + ",";
+            }
+            return id + cost + res;
         }
 
 

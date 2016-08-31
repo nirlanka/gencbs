@@ -34,8 +34,10 @@ namespace gencbs.Scheduler.Genetic
             for (int i = 0; i < populationSize; i++)
             {
                 Console.WriteLine("creating initial generation, individual number "+i);
-                population[i] = new Job(job);
-                assignRandomResources(population[i]);
+                //population[i] = new Job(job);
+                this.population[i] = assignRandomResources(job);
+                this.population[i].cost = this.population[i].getCost();
+                //Console.WriteLine(population[i]);
             }
         }
 
@@ -62,15 +64,16 @@ namespace gencbs.Scheduler.Genetic
         /// </summary>
         /// <param name="job"></param>
         /// <returns></returns>
-        public Job assignRandomResources(Job job)
+        public Job assignRandomResources(Job j)
         {
-            Console.WriteLine("assigning random resource------------------------------------");
+            Job job = new Job(j);
+            Console.WriteLine("assigning random resource------------------------------------" + j);
             foreach(ResourceForJob res in job.requiredResources) 
             {
                 Console.WriteLine("assign to type - " + res.resourceType.typeName);
                 res.allocated_resource = getRandomResource(res.resourceType.typeName);
             }
-
+            Console.WriteLine(job);
             return job;
         }
 
@@ -78,13 +81,16 @@ namespace gencbs.Scheduler.Genetic
         {
             int[] selection; 
             Job[] newJobs = new Job[2];
+            Console.WriteLine("start crossovering the population----");
             for (int i = 0; i < crossoverLimit / 2; i++)
             {
                 selection = selectParentIndex();
+                Console.WriteLine("crossover parents: p1 = "+ selection[0] + " and p2 = "+ selection[1]);
                 newJobs = crossover(population[selection[0]], population[selection[1]]);
                 this.nextGeneration[2*i] = new Job(newJobs[0]);
                 this.nextGeneration[2 * i + 1] = new Job(newJobs[1]);
             }
+
         }
 
        
@@ -149,7 +155,7 @@ namespace gencbs.Scheduler.Genetic
             int[] selectedIndex = new int[2];
             selectedIndex[0] = randomNumber.Next(crossoverLimit - 1);
             selectedIndex[1] = randomNumber.Next(crossoverLimit - 1);
-            while (selectedIndex[0] != selectedIndex[1])
+            while (selectedIndex[0] == selectedIndex[1]) //to avoid getting the same individual as parents
             {
                 selectedIndex[1] = randomNumber.Next(crossoverLimit - 1);
             }
@@ -162,6 +168,10 @@ namespace gencbs.Scheduler.Genetic
         /// </summary>
         private void sortPopulationByFitness()
         {
+            //is this fitness function good enough?
+            //how can we check for the termination by this??
+
+            /*
             Double totalFitness = 0;
             for (int i = 0; i < populationSize; i++)
             {
@@ -175,6 +185,8 @@ namespace gencbs.Scheduler.Genetic
                // population[i].fitness = 1 - ( population[i].cost / totalCost);
                 population[i].fitness = population[i].fitness / totalFitness;
             }
+             * 
+             * */
 
             Array.Sort(population);
 
@@ -183,6 +195,20 @@ namespace gencbs.Scheduler.Genetic
         public void runSchedular(Job job)
         {
             createInitialGeneration(job);
+
+            for (int i = 0; i < 3; i++)
+            {
+
+                Console.WriteLine("population " + i + "==========================");
+                for (int j = 0; j < populationSize; j++ )
+                {
+                    Console.WriteLine(population[j]);
+                }
+                sortPopulationByFitness();
+                crossoverPopulation();
+                
+
+            }
         }
     }
 }

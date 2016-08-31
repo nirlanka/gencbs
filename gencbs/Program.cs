@@ -30,6 +30,7 @@ namespace gencbs
             job1.delayPanaltyForHour = 10000;
 
             gencbs.Scheduler.Genetic.GeneticSchedular gs = new Scheduler.Genetic.GeneticSchedular();
+            //Console.WriteLine("Job to be scheduled ------" + job1);
             gs.runSchedular(job1);
             
 
