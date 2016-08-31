@@ -40,6 +40,17 @@ namespace gencbs.Jobs
             this.requiredResources.AddLast(reqResource);
         }
 
+        /// <summary>
+        /// use this method if a resource is already allocated.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="allocate"></param>
+        public void addRequiredResource(ResourceType type, Resource allocate)
+        {
+            ResourceForJob reqResource = new ResourceForJob(type, allocate);
+            this.requiredResources.AddLast(reqResource);
+        }
+
         public Job(Job job)
         {
             this.EPST = job.EPST;
@@ -55,7 +66,11 @@ namespace gencbs.Jobs
             //we have to create a new list every time
             foreach (ResourceForJob res in job.requiredResources)
             {
-                addRequiredResource(new ResourceType(res.resourceType.typeName, res.resourceType.setupCost));
+                if (res.allocated_resource != null)
+                {
+                    addRequiredResource(new ResourceType(res.resourceType.typeName, res.resourceType.setupCost), res.allocated_resource);
+                }
+                else addRequiredResource(new ResourceType(res.resourceType.typeName, res.resourceType.setupCost));
             }
         }
 
@@ -123,6 +138,7 @@ namespace gencbs.Jobs
 
             cost += calculateDelayPanalty();
             if (cost == 0) return 1; //to avoid devision by zero
+            this.cost = cost;
             return cost;
         }
 

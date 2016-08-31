@@ -15,5 +15,11 @@ namespace gencbs.Jobs
         {
             this.resourceType = type;
         }
+
+        public ResourceForJob(ResourceType type, Resource allocated)
+        {
+            this.resourceType = type;
+            this.allocated_resource = allocated;
+        }
     }
 }

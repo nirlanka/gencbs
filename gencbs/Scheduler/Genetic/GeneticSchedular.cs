@@ -121,6 +121,7 @@ namespace gencbs.Scheduler.Genetic
             return offsprings;
         }
 
+        //this won't work since we are passing the references
         public void mutation() 
         {
             for (int i = crossoverLimit; i < populationSize; i++)
@@ -132,11 +133,17 @@ namespace gencbs.Scheduler.Genetic
         /// <summary>
         /// Select one randome resources from each individuals to be mutated and change them.
         /// </summary>
-        public Job mutate(Job job)
+        public Job mutate(Job j)
         {
+            Job job = new Job(j);
             int noOfResources = job.requiredResources.Count;
-            int mutationResourceNo = randomNumber.Next(noOfResources - 1);
+            int mutationResourceNo = randomNumber.Next(noOfResources);
+
             ResourceType mutationResourceType = job.requiredResources.ElementAt(mutationResourceNo).resourceType;
+
+
+            Console.WriteLine("mutating the " + mutationResourceType.typeName);
+
             Resource newSwapResource =  getRandomResource(mutationResourceType.typeName);
             job.requiredResources.ElementAt(mutationResourceNo).allocated_resource = newSwapResource;
             return job;
@@ -187,16 +194,30 @@ namespace gencbs.Scheduler.Genetic
             }
              * 
              * */
-
+            for (int i = 0; i < populationSize; i++)
+            {
+                // population[i].fitness = 1 - ( population[i].cost / totalCost);
+                
+                this.population[i].getCost();
+            }
             Array.Sort(population);
 
+        }
+
+        public void assignNewPopulation()
+        {
+            Console.WriteLine("replacing the older population by next generation.");
+            for (int i = 0; i < populationSize; i++)
+            {
+                this.population[i] = new Job(this.nextGeneration[i]);
+            }
         }
 
         public void runSchedular(Job job)
         {
             createInitialGeneration(job);
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 10; i++)
             {
 
                 Console.WriteLine("population " + i + "==========================");
@@ -205,7 +226,16 @@ namespace gencbs.Scheduler.Genetic
                     Console.WriteLine(population[j]);
                 }
                 sortPopulationByFitness();
+                Console.WriteLine("population " + i + " -> after sorting =================================");
+                for (int j = 0; j < populationSize; j++)
+                {
+                    Console.WriteLine(population[j]);
+                }
+
                 crossoverPopulation();
+                //domutations here
+                mutation();
+                assignNewPopulation();
                 
 
             }
